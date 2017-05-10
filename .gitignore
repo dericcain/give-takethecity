@@ -16,3 +16,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# we are using Sass so we don't need these
+# src/**/*.css
