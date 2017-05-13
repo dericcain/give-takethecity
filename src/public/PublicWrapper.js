@@ -33,33 +33,31 @@ class PublicWrapper extends Component {
             transitionEnterTimeout={1000}
             transitionLeaveTimeout={1000}
           >
-            <Switch>
-              <Route path="/amount"
-                     component={Amount}
-                     location={location}
-                     key={key}
-              />
-              <Route path="/personal-info"
-                     component={PersonalInfo}
-                     location={location}
-                     key={key}
-              />
-              <Route path="/payment-method"
-                     component={PaymentMethod}
-                     location={location}
-                     key={key}
-              />
-              <Route path="/review"
-                     component={Review}
-                     location={location}
-                     key={key}
-              />
-              <Route path="/success"
-                     component={Success}
-                     location={location}
-                     key={key}
-              />
-            </Switch>
+            <Route path="/amount"
+                   component={Amount}
+                   location={location}
+                   key={key}
+            />
+            <Route path="/personal-info"
+                   component={PersonalInfo}
+                   location={location}
+                   key={key}
+            />
+            <Route path="/payment-method"
+                   component={PaymentMethod}
+                   location={location}
+                   key={key}
+            />
+            <Route path="/review"
+                   component={Review}
+                   location={location}
+                   key={key}
+            />
+            <Route path="/success"
+                   component={Success}
+                   location={location}
+                   key={key}
+            />
           </CSSTransitionGroup>
         </div>
       </div>
