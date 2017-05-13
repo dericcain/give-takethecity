@@ -3,21 +3,16 @@ import {
   Route,
 } from 'react-router-dom'
 import { PublicWrapper } from './public';
-import { AdminWrapper } from './admin';
+import 'font-awesome/css/font-awesome.css';
 import './App.sass';
+import DevTools from 'mobx-react-devtools';
 
 class App extends Component {
-
-  constructor(props) {
-    super(props);
-    console.log(props.length);
-  }
-  
   render() {
     return (
     <div>
+      <DevTools/>
       <Route path="/" component={PublicWrapper} />
-      <Route path="/admin" component={AdminWrapper} />
     </div>
     );
   }

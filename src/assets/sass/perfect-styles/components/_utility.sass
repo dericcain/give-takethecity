@@ -1,0 +1,56 @@
+
+// Utility
+// ––––––––––––––––––––––––––––––––––––––––––––––––––
+
+.hidden
+	display: none
+
+$sizes: (6, 12, 18, 24, 36)
+
+// Clear a float with .clearfix
+.clearfix
+
+	&:after
+		clear: both
+		content: ' ' // The space content is one way to avoid an Opera bug.
+		display: table
+
+// Float either direction
+.float-left
+	float: left
+
+.float-right
+	float: right
+
+@each $size in $sizes
+	// margin
+	.m-#{$size}
+		margin: #{$size}px
+
+	.m-b-#{$size}
+		margin-bottom: #{$size}px
+
+	.m-t-#{$size}
+		margin-top: #{$size}px
+
+	.m-l-#{$size}
+		margin-left: #{$size}px
+
+	.m-r-#{$size}
+		margin-right: #{$size}px
+
+	// padding
+	.p-#{$size}
+		padding: #{$size}px
+
+	.p-b-#{$size}
+		padding-bottom: #{$size}px
+
+	.p-t-#{$size}
+		padding-top: #{$size}px
+
+	.p-l-#{$size}
+		padding-left: #{$size}px
+
+	.p-r-#{$size}
+		padding-right: #{$size}px

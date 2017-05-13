@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
-import DonationButtons from './components/DonationButtons';
-import AmountButtonGroup from './components/AmountButtonGroup';
-import CoverFees from './components/CoverFees';
-import Logo from './components/Logo';
+import { observer, inject } from 'mobx-react';
+import NavButtons from './components/common/NavButtons';
+import AmountButtonGroup from './components/amount/AmountButtonGroup';
+import CoverFees from './components/amount/CoverFees';
+import Logo from './components/common/Logo';
 import './Amount.sass';
 
+@inject('donation') @observer
 class Amount extends Component {
+
+  constructor(props) {
+    super(props);
+  }
+
+  handleInputChange(event) {
+    this.props.donation.setAmount(parseFloat(event.target.value));
+  }
 
   render() {
     return (
@@ -18,11 +28,12 @@ class Amount extends Component {
           what we do, <a href="https://takethecity.com">click here</a>.</p>
         <AmountButtonGroup />
           <input id="other-amount"
+                 onChange={this.handleInputChange.bind(this)}
                  type="number"
                  placeholder="Other amount"
           />
         <CoverFees />
-        <DonationButtons
+        <NavButtons
           prevLink="/"
           nextLink="/personal-info"
         />

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import DonationButtons from './components/DonationButtons';
+import NavButtons from './components/common/NavButtons';
 
 class PersonalInfo extends Component {
 
@@ -11,7 +11,7 @@ class PersonalInfo extends Component {
   render() {
     return (
         <div key={this.props.key}>
-          <DonationButtons
+          <NavButtons
             prevLink="/amount"
             nextLink="/payment-method"
           />

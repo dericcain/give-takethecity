@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import DonationButtons from './components/DonationButtons';
+import NavButtons from './components/common/NavButtons';
 
 class PaymentMethod extends Component {
   constructor(props) {
@@ -9,7 +9,7 @@ class PaymentMethod extends Component {
   render() {
     return (
         <div>
-          <DonationButtons
+          <NavButtons
             prevLink="/personal-info"
             nextLink="/review"
           />

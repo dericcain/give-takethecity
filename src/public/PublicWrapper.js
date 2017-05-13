@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { Provider } from 'mobx-react';
+import DonationStore from './stores/DonationStore';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import {
   Amount,
@@ -23,44 +25,26 @@ class PublicWrapper extends Component {
   }
 
   render() {
-    const { location } = this.props;
+    const { location, donation } = this.props;
     const { key } = location;
     return (
-      <div className="form--wrapper">
-        <div className="form--container">
-          <CSSTransitionGroup
-            transitionName={this.handlePageTransition()}
-            transitionEnterTimeout={1000}
-            transitionLeaveTimeout={1000}
-          >
-            <Route path="/amount"
-                   component={Amount}
-                   location={location}
-                   key={key}
-            />
-            <Route path="/personal-info"
-                   component={PersonalInfo}
-                   location={location}
-                   key={key}
-            />
-            <Route path="/payment-method"
-                   component={PaymentMethod}
-                   location={location}
-                   key={key}
-            />
-            <Route path="/review"
-                   component={Review}
-                   location={location}
-                   key={key}
-            />
-            <Route path="/success"
-                   component={Success}
-                   location={location}
-                   key={key}
-            />
-          </CSSTransitionGroup>
+      <Provider donation={DonationStore}>
+        <div className="form--wrapper">
+          <div className="form--container">
+            <CSSTransitionGroup
+              transitionName={this.handlePageTransition()}
+              transitionEnterTimeout={1000}
+              transitionLeaveTimeout={1000}
+            >
+              <Route path="/amount" component={Amount} />
+              <Route path="/personal-info" component={PersonalInfo} />
+              <Route path="/payment-method" component={PaymentMethod} />
+              <Route path="/review" component={Review} />
+              <Route path="/success" component={Success} />
+            </CSSTransitionGroup>
+          </div>
         </div>
-      </div>
+      </Provider>
     );
   }
 }
