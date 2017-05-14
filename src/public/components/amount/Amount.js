@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import NavButtons from './components/common/NavButtons';
-import AmountButtonGroup from './components/amount/AmountButtonGroup';
-import CoverFees from './components/amount/CoverFees';
-import Logo from './components/common/Logo';
+import NavButtons from '../common/NavButtons';
+import AmountButtonGroup from './AmountButtonGroup';
+import CoverFees from './CoverFees';
+import RecurringButton from './RecurringButton';
+import Logo from '../common/Logo';
 import './Amount.sass';
 
 @inject('donation') @observer
@@ -33,6 +34,7 @@ class Amount extends Component {
                  placeholder="Other amount"
           />
         <CoverFees />
+        <RecurringButton />
         <NavButtons
           prevLink="/"
           nextLink="/personal-info"

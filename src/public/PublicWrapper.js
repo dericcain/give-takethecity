@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Redirect, Switch } from 'react-router-dom';
 import { Provider } from 'mobx-react';
 import DonationStore from './stores/DonationStore';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
@@ -36,6 +36,7 @@ class PublicWrapper extends Component {
               transitionEnterTimeout={1000}
               transitionLeaveTimeout={1000}
             >
+              <Route exact path="/" render={() => <Redirect to="/amount" />}/>
               <Route path="/amount" component={Amount} />
               <Route path="/personal-info" component={PersonalInfo} />
               <Route path="/payment-method" component={PaymentMethod} />

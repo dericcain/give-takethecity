@@ -7,11 +7,10 @@ export default class CoverFees extends Component {
 
   constructor(props) {
     super(props);
-    window.donation = this.props.donation;
   }
 
-  setRecurring() {
-    this.props.donation.toggleRecurring();
+  handleOnChange() {
+    this.props.donation.toggleCoverFees();
   }
 
   isVisible() {
@@ -21,14 +20,14 @@ export default class CoverFees extends Component {
   }
 
   render() {
-    const { amountWithFees } = this.props.donation;
+    const { fees } = this.props.donation;
     return (
       <div className={`cover-fees ${this.isVisible()}`}>
         <div className="cover-fees-checkbox">
-          <input type="checkbox" id="cover-fees" name="cover-fees" onChange={this.setRecurring.bind(this)} />
+          <input type="checkbox" id="cover-fees" name="cover-fees" onChange={this.handleOnChange.bind(this)} />
         </div>
         <label htmlFor="cover-fees" className="cover-fees-text">
-          <p>I'd like to cover the ${ amountWithFees } processing fee so 100% of my donation
+          <p>I'd like to cover the ${ fees } processing fee so 100% of my donation
             goes to Take the City.</p>
         </label>
       </div>

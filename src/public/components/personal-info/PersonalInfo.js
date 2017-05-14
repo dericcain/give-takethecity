@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import NavButtons from './components/common/NavButtons';
+import NavButtons from '../common/NavButtons';
 
 class PersonalInfo extends Component {
 

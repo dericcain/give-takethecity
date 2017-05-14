@@ -1,7 +1,7 @@
 import Public from '../public/PublicWrapper';
-import Amount from '../public/Amount';
+import Amount from '../public/components/amount/Amount';
 import PaymentMethod from '../public/PaymentMethod';
-import PersonalInfo from '../public/PersonalInfo';
+import PersonalInfo from '../public/components/personal-info/PersonalInfo';
 import Review from '../public/Review';
 import Success from '../public/Success';
 

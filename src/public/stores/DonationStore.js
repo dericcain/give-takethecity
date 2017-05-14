@@ -1,7 +1,7 @@
 import { observable, action, computed } from 'mobx';
 
 class DonationStore {
-  feeAmount = .026;
+  feePercentage = .026;
   @observable amount = 0;
   @observable isRecurring = false;
   @observable firstName;
@@ -17,13 +17,13 @@ class DonationStore {
     this.amount = amount;
   }
 
-  @computed get amountWithFees() {
+  @computed get fees() {
     if (this.amount === 0) {
       return 0;
     }
 
     const baseFee = this.amount + .30;
-    const calculatedFee = baseFee / (1 - this.feeAmount);
+    const calculatedFee = baseFee / (1 - this.feePercentage);
 
     return Math.round((calculatedFee - this.amount) * 100) / 100;
   }
@@ -33,9 +33,23 @@ class DonationStore {
     this.isRecurring = !this.isRecurring
   }
 
+  @action('Covering the fees, so we need to add that to the donation')
+  toggleCoverFees() {
+    this.isCoveringFees = !this.isCoveringFees;
+  }
+
   @computed get amountIsValid() {
     return !!this.amount;
   }
+
+  @computed get total() {
+    if (this.isCoveringFees) {
+      return this.amount + this.fees;
+    }
+
+    return this.amount;
+  }
+
 }
 
 export default new DonationStore;
