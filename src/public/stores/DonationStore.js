@@ -3,16 +3,20 @@ import { observable, action, computed } from 'mobx';
 class DonationStore {
   feePercentage = .026;
   @observable amount = 0;
-  @observable isRecurring = false;
-  @observable firstName;
-  @observable lastName;
-  @observable address;
-  @observable zipCode;
-  @observable email;
-  @observable phoneNumber;
   @observable isCoveringFees;
+  @observable isRecurring = false;
+  @observable personalInfo = {
+    firstName: '',
+    lastName: '',
+    address: '',
+    zipCode: '',
+    email: '',
+    phoneNumber: '',
+  };
+  @observable designation;
 
-  @action('Sets the donation amount')
+
+  @action('Set the donation amount')
   setAmount(amount) {
     this.amount = amount;
   }
@@ -28,17 +32,17 @@ class DonationStore {
     return Math.round((calculatedFee - this.amount) * 100) / 100;
   }
 
-  @action('Toggles the donation as recurring')
+  @action('Toggles recurring donation')
   toggleRecurring() {
     this.isRecurring = !this.isRecurring
   }
 
-  @action('Covering the fees, so we need to add that to the donation')
+  @action('Toggles covering donation fees')
   toggleCoverFees() {
     this.isCoveringFees = !this.isCoveringFees;
   }
 
-  @computed get amountIsValid() {
+  @computed get amountSectionIsValid() {
     return !!this.amount;
   }
 
@@ -50,6 +54,15 @@ class DonationStore {
     return this.amount;
   }
 
+  @action('Updates personal info')
+  updatePersonalInfo(field, value) {
+    this.personalInfo[field] = value;
+  }
+
+  @action
+  updateDesignation(designation) {
+    this.designation = designation;
+  }
 }
 
-export default new DonationStore;
+export default new DonationStore();

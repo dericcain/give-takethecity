@@ -1,0 +1,60 @@
+body
+  background: url('../../assets/images/bg.jpg') no-repeat center center
+  background-size: cover
+  height: 100vh
+
+  .form-wrapper
+    display: flex
+    height: inherit
+    justify-content: center
+    align-items: center
+
+    .form-container
+      position: relative
+      display: flex
+      height: 600px
+      width: 420px
+      background-color: #fff
+      box-shadow: 0 3px 3px rgba(0, 0, 0, .18), 0 2px 3px rgba(0, 0, 0, .24)
+      overflow: hidden
+
+      @media screen and (max-width: 600px)
+        height: 100%
+        width: 100%
+
+      &>span
+        width: inherit
+
+      p
+        font-size: 13px
+
+        &.p-intro
+          padding: 0 18px
+
+.transition-wrapper
+  position: relative
+  z-index: 0
+  .transition-item
+    position: absolute
+    width: 420px
+    top: 0
+    left: 0
+
+.personal-info,
+.amount
+  transition: transform .7s
+
+  &.transition-enter, .transition-appear
+    transform: translate(100%)
+
+  &.transition-enter.transition-enter-active, .transition-appear.transition-appear-active
+    transform: translate(0)
+
+  &.transition-leave
+    transform: translate(0)
+
+  &.transition-leave.transition-leave-active
+    transform: translate(-100%)
+
+
+

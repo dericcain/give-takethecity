@@ -5,11 +5,7 @@ import './RecurringButton.sass';
 @inject('donation') @observer
 class RecurringButton extends Component {
 
-  constructor(props) {
-    super(props);
-  }
-
-  handleClick(amount) {
+  handleClick() {
     this.props.donation.toggleRecurring();
   }
 
@@ -23,7 +19,7 @@ class RecurringButton extends Component {
         className={`btn-recurring ${this.isRecurring() ? 'active' : ''}`}
         onClick={this.handleClick.bind(this)}>
         {this.isRecurring()
-          ? `You\'re gift is recurring.`
+          ? `You're gift is recurring.`
           : 'Make my gift recurring!'
         }
       </button>

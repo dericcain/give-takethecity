@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import {
   Route,
 } from 'react-router-dom'
-import { PublicWrapper } from './public';
-import 'font-awesome/css/font-awesome.css';
+import { PublicWrapper } from './public/components';
 import './App.sass';
 import DevTools from 'mobx-react-devtools';
 

@@ -5,10 +5,6 @@ import './CoverFees.sass';
 @inject('donation') @observer
 export default class CoverFees extends Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   handleOnChange() {
     this.props.donation.toggleCoverFees();
   }

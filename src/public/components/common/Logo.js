@@ -1,6 +1,11 @@
 import React from 'react';
 import logo from '../../../assets/images/logo.png';
 
+const styles = {
+  margin: '12px auto',
+  display: 'block'
+};
+
 const Logo = () => {
   return (
     <div className="logo">
@@ -9,9 +14,5 @@ const Logo = () => {
   );
 };
 
-const styles = {
-  margin: '12px auto',
-  display: 'block'
-};
 
 export default Logo;

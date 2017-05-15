@@ -4,10 +4,6 @@ import './AmountButtonGroup.sass'
 
 class AmountButtonGroup extends Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div>
