@@ -15,8 +15,21 @@ import './PublicWrapper.sass';
 
 class PublicWrapper extends Component {
 
+  constructor(props) {
+    super(props);
+    console.log(this.props.location);
+  }
+
+  handlePageTransition() {
+    console.log(this.props.history);
+    return this.props.history.action !== 'PUSH'
+      ? 'previous'
+      : 'next';
+  }
+
+
   render() {
-    const { location } = this.props;
+    const { location, history } = this.props;
 
     return (
       <Provider donation={DonationStore}>
@@ -25,9 +38,7 @@ class PublicWrapper extends Component {
             <CSSTransitionGroup
               component="div"
               className="transition-wrapper"
-              transitionName="transition"
-              transitionAppear={true}
-              transitionAppearTimeout={700}
+              transitionName={this.handlePageTransition()}
               transitionEnterTimeout={700}
               transitionLeaveTimeout={700}
               >

@@ -44,17 +44,27 @@ body
 .amount
   transition: transform .7s
 
-  &.transition-enter, .transition-appear
+  &.next-enter
     transform: translate(100%)
 
-  &.transition-enter.transition-enter-active, .transition-appear.transition-appear-active
+    &.next-enter-active
+      transform: translate(0)
+
+  &.next-leave
     transform: translate(0)
 
-  &.transition-leave
-    transform: translate(0)
+    &.next-leave-active
+      transform: translate(-100%)
 
-  &.transition-leave.transition-leave-active
+  &.previous-enter
     transform: translate(-100%)
 
+    &.previous-enter-active
+      transform: translate(0)
 
+  &.previous-leave
+    transform: translate(0)
+
+    &.previous-leave-active
+      transform: translate(100%)
 
