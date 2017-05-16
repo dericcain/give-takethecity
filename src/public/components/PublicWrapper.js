@@ -3,6 +3,7 @@ import { Route, Redirect, Switch } from 'react-router-dom';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { Provider } from 'mobx-react';
 import DonationStore from '../stores/DonationStore';
+import NavigationStore from '../stores/NavigationStore';
 import NavButtons from './common/NavButtons';
 import {
   Amount,
@@ -15,24 +16,20 @@ import './PublicWrapper.sass';
 
 class PublicWrapper extends Component {
 
-  constructor(props) {
-    super(props);
-    console.log(this.props.location);
-  }
-
   handlePageTransition() {
-    console.log(this.props.history);
-    return this.props.history.action !== 'PUSH'
-      ? 'previous'
-      : 'next';
-  }
+    const { state } = this.props.location;
+    if (state) {
+      return state.direction;
+    }
 
+    return 'next';
+  }
 
   render() {
-    const { location, history } = this.props;
+    const { location } = this.props;
 
     return (
-      <Provider donation={DonationStore}>
+      <Provider donation={DonationStore} navigation={NavigationStore}>
         <div className="form-wrapper">
           <div className="form-container">
             <CSSTransitionGroup
@@ -44,17 +41,17 @@ class PublicWrapper extends Component {
               >
               <Switch key={location.key} location={location}>
                 <Route exact path="/" render={() => <Redirect to="/amount" />} />
-                <Route path="/amount" component={Amount} />
-                <Route path="/personal-info" component={PersonalInfo} />
-                <Route path="/payment-method" component={PaymentMethod} />
-                <Route path="/review" component={Review} />
-                <Route path="/success" component={Success} />
+                <Route path="/amount" key="1" component={Amount} />
+                <Route path="/personal-info" key="2" component={PersonalInfo} />
+                <Route path="/payment-method" key="3" component={PaymentMethod} />
+                <Route path="/review" key="4" component={Review} />
+                <Route path="/success" key="5" component={Success} />
               </Switch>
             </CSSTransitionGroup>
             <NavButtons
-              location={location}
               prevLink="/"
               nextLink="/personal-info"
+              {...this.props}
             />
           </div>
         </div>

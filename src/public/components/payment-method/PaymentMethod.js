@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
-import NavButtons from '../common/NavButtons';
 
 class PaymentMethod extends Component {
-  constructor(props) {
-    super(props);
-    console.log(props);
-  }
+
   render() {
     return (
         <div>
-          <NavButtons
-            prevLink="/personal-info"
-            nextLink="/review"
-          />
+          <h1>Payment</h1>
         </div>
     );
   }

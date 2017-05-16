@@ -15,7 +15,7 @@ class Amount extends Component {
 
   render() {
     return (
-      <div className="amount">
+      <div className="amount transition-item">
         <Logo />
         <h4 className="text-center m-b-6">Thanks for giving!</h4>
         <p className="p-intro">We are honored the you want to partner with us to transform cities! Your gift will have a

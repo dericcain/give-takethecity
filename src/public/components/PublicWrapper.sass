@@ -22,7 +22,7 @@ body
         height: 100%
         width: 100%
 
-      &>span
+      & > span
         width: inherit
 
       p
@@ -33,38 +33,38 @@ body
 
 .transition-wrapper
   position: relative
-  z-index: 0
+
   .transition-item
     position: absolute
     width: 420px
     top: 0
     left: 0
 
-.personal-info,
-.amount
-  transition: transform .7s
+    &.next-enter
+      transform: translate(100%)
 
-  &.next-enter
-    transform: translate(100%)
+      &.next-enter-active
+        transition: transform .7s
+        transform: translate(0)
 
-    &.next-enter-active
+    &.next-leave
       transform: translate(0)
 
-  &.next-leave
-    transform: translate(0)
+      &.next-leave-active
+        transition: transform .7s
+        transform: translate(-100%)
 
-    &.next-leave-active
+    &.previous-enter
       transform: translate(-100%)
 
-  &.previous-enter
-    transform: translate(-100%)
+      &.previous-enter-active
+        transition: transform .7s
+        transform: translate(0)
 
-    &.previous-enter-active
+    &.previous-leave
       transform: translate(0)
 
-  &.previous-leave
-    transform: translate(0)
-
-    &.previous-leave-active
-      transform: translate(100%)
+      &.previous-leave-active
+        transition: transform .7s
+        transform: translate(100%)
 
