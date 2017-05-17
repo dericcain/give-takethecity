@@ -48,7 +48,7 @@ class PersonalInfo extends Component {
                  .map(item => <option key={item.id} value={item.id}>{item.name}</option>)}
           </select>
           <input id="firstName"
-                 className="input-half left"
+                 className="input-half left input-error"
                  onChange={this.handleOnChange.bind(this)}
                  type="text"
                  placeholder="First Name" />
@@ -78,6 +78,9 @@ class PersonalInfo extends Component {
                  type="text"
                  placeholder="Phone" />
           <DesignationComments />
+        </div>
+        <div className="validation-errors">
+
         </div>
       </div>
     );

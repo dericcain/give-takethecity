@@ -1,4 +1,5 @@
 import { observable, action, computed } from 'mobx';
+import validator from 'validator';
 
 class DonationStore {
   feePercentage = .026;
@@ -14,7 +15,6 @@ class DonationStore {
     phoneNumber: '',
   };
   @observable designation;
-
 
   @action('Set the donation amount')
   setAmount(amount) {
@@ -42,10 +42,6 @@ class DonationStore {
     this.isCoveringFees = !this.isCoveringFees;
   }
 
-  @computed get amountSectionIsValid() {
-    return !!this.amount;
-  }
-
   @computed get total() {
     if (this.isCoveringFees) {
       return this.amount + this.fees;
@@ -63,6 +59,45 @@ class DonationStore {
   updateDesignation(designation) {
     this.designation = designation;
   }
+
+  @computed get amountValidation() {
+    return {
+      amount: {
+        isValid: !!this.amount && this.amount > 0,
+        message: 'The amount is not valid.'
+      }
+    }
+  }
+
+  @computed get personalInfoValidation() {
+    return {
+      firstName: {
+        isValid: !validator.isEmtpy(this.firstName),
+        message: 'You must enter a first name.'
+      },
+      lastName: {
+        isValid: !validator.isEmtpy(this.lastName),
+        message: 'You must enter a last name.'
+      },
+      address: {
+        isValid: !validator.isEmtpy(this.address),
+        message: 'You must enter an address.'
+      },
+      zipCode: {
+        isValid: validator.isLength(this.zipCode, { min: 5, max: 5 }) && validator.isInt(this.zipCode),
+        message: 'The zip code must be 5 digits long.'
+      },
+      email: {
+        isValid: validator.isEmail(this.email),
+        message: 'You must supply a valid email address.'
+      },
+      phoneNumber: {
+        isValid: validator.isLength(this.phoneNumber, { min: 10, max: 10 })
+          || validator.isEmpty(this.phoneNumber),
+        message: 'The phone number must 10 digits only.'
+      },
+    };
+  };
 }
 
 export default new DonationStore();

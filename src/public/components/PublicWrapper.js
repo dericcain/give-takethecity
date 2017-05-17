@@ -38,7 +38,7 @@ class PublicWrapper extends Component {
               transitionName={this.handlePageTransition()}
               transitionEnterTimeout={700}
               transitionLeaveTimeout={700}
-              >
+            >
               <Switch key={location.key} location={location}>
                 <Route exact path="/" render={() => <Redirect to="/amount" />} />
                 <Route path="/amount" key="1" component={Amount} />

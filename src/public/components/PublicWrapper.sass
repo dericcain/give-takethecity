@@ -33,12 +33,16 @@ body
 
 .transition-wrapper
   position: relative
+  width: 100%
 
   .transition-item
     position: absolute
     width: 420px
     top: 0
     left: 0
+
+    @media screen and (max-width: 600px)
+      width: 100%
 
     &.next-enter
       transform: translate(100%)
