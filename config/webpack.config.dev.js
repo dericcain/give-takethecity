@@ -9,7 +9,13 @@ var WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeMod
 var getClientEnvironment = require('./env');
 var paths = require('./paths');
 
-
+const VENDOR_LIBS = [
+  'mobx',
+  'mobx-react',
+  'react',
+  'react-dom',
+  'react-router-dom',
+];
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -46,7 +52,7 @@ module.exports = {
     // We ship a few polyfills by default:
     require.resolve('./polyfills'),
     // Finally, this is your app's code:
-    paths.appIndexJs
+    paths.appIndexJs,
     // We include the app code last so that if there is a runtime error during
     // initialization, it doesn't blow up the WebpackDevServer client, and
     // changing JS code would still trigger a refresh.

@@ -23,9 +23,15 @@ class PersonalInfo extends Component {
          .catch(error => console.log(error));
   }
 
-  handleOnChange(event) {
-    const { id, value } = event;
+  handleKeyUp(event) {
+    const { id, value } = event.target;
     this.props.donation.updatePersonalInfo(id, value);
+    this.checkIfValid()
+  }
+
+  checkIfValid() {
+    console.log(this.props.donation.personalInfoValidation);
+    return this.props.donation.personalInfoValidation;
   }
 
   handleDesignationChange(event) {
@@ -48,33 +54,33 @@ class PersonalInfo extends Component {
                  .map(item => <option key={item.id} value={item.id}>{item.name}</option>)}
           </select>
           <input id="firstName"
-                 className="input-half left input-error"
-                 onChange={this.handleOnChange.bind(this)}
+                 className="input-half left"
+                 onKeyUp={this.handleKeyUp.bind(this)}
                  type="text"
                  placeholder="First Name" />
           <input id="lastName"
                  className="input-half right"
-                 onChange={this.handleOnChange.bind(this)}
+                 onChange={this.handleKeyUp.bind(this)}
                  type="text"
                  placeholder="Last Name" />
           <input id="email"
                  className="input"
-                 onChange={this.handleOnChange.bind(this)}
+                 onChange={this.handleKeyUp.bind(this)}
                  type="email"
                  placeholder="Email" />
           <input id="address"
                  className="input"
-                 onChange={this.handleOnChange.bind(this)}
+                 onChange={this.handleKeyUp.bind(this)}
                  type="text"
                  placeholder="Address" />
-          <input id="zip"
+          <input id="zipCode"
                  className="input-one-third left"
-                 onChange={this.handleOnChange.bind(this)}
+                 onChange={this.handleKeyUp.bind(this)}
                  type="text"
                  placeholder="Zip" />
           <input id="phone"
                  className="input-two-third right"
-                 onChange={this.handleOnChange.bind(this)}
+                 onChange={this.handleKeyUp.bind(this)}
                  type="text"
                  placeholder="Phone" />
           <DesignationComments />

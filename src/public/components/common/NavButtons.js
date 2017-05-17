@@ -9,8 +9,7 @@ export default class NavButtons extends Component {
 
   constructor(props) {
     super(props);
-    const {navigation, location} = this.props;
-    console.log(props);
+    const { navigation, location } = this.props;
     navigation.updateNavButtonUrl(location.pathname, location.action);
     this.listenForPageChange();
   }
@@ -20,12 +19,13 @@ export default class NavButtons extends Component {
       this.props.navigation.updateNavButtonUrl(location.pathname, action);
     });
   }
-    renderButton() {
-    const {nextPage, previousPage } = this.props.navigation;
+
+  renderButton() {
+    const { nextPage, previousPage } = this.props.navigation;
 
     switch (this.props.location.pathname) {
       case '/amount':
-        let { isValid, message } = this.props.donation.amountValidation.amount;
+        let { isValid } = this.props.donation.amountValidation.amount;
         return (
           <FullWidthButton
             isValid={isValid ? '' : 'disabled'}

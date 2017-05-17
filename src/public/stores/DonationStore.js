@@ -1,5 +1,10 @@
 import { observable, action, computed } from 'mobx';
-import validator from 'validator';
+import {
+  isNotEmpty,
+  hasLengthOf,
+  isEmail,
+  isNumber
+} from '../helpers/validators';
 
 class DonationStore {
   feePercentage = .026;
@@ -64,6 +69,7 @@ class DonationStore {
     return {
       amount: {
         isValid: !!this.amount && this.amount > 0,
+        value: this.amount,
         message: 'The amount is not valid.'
       }
     }
@@ -72,30 +78,38 @@ class DonationStore {
   @computed get personalInfoValidation() {
     return {
       firstName: {
-        isValid: !validator.isEmtpy(this.firstName),
+        isValid: isNotEmpty(this.personalInfo.firstName),
+        value: this.personalInfo.firstName,
         message: 'You must enter a first name.'
       },
       lastName: {
-        isValid: !validator.isEmtpy(this.lastName),
+        isValid: isNotEmpty(this.personalInfo.lastName),
+        value: this.personalInfo.lastName,
         message: 'You must enter a last name.'
       },
       address: {
-        isValid: !validator.isEmtpy(this.address),
+        isValid: isNotEmpty(this.personalInfo.address),
+        value: this.personalInfo.address,
         message: 'You must enter an address.'
       },
       zipCode: {
-        isValid: validator.isLength(this.zipCode, { min: 5, max: 5 }) && validator.isInt(this.zipCode),
+        isValid: hasLengthOf(5, this.personalInfo.zipCode)
+          && isNumber(this.personalInfo.zipCode),
+        value: this.personalInfo.zipCode,
         message: 'The zip code must be 5 digits long.'
       },
       email: {
-        isValid: validator.isEmail(this.email),
+        isValid: isEmail(this.personalInfo.email),
+        value: this.personalInfo.email,
         message: 'You must supply a valid email address.'
       },
-      phoneNumber: {
-        isValid: validator.isLength(this.phoneNumber, { min: 10, max: 10 })
-          || validator.isEmpty(this.phoneNumber),
-        message: 'The phone number must 10 digits only.'
-      },
+      // phoneNumber: {
+      //   isValid: (hasLengthOf(10, this.personalInfo.phoneNumber)
+      //     && !isNotEmpty(this.personalInfo.phoneNumber))
+      //     || !isNotEmpty(this.personalInfo.phoneNumber),
+      //   value: this.personalInfo.phoneNumber,
+      //   message: 'The phone number must 10 digits only.'
+      // },
     };
   };
 }
