@@ -10,9 +10,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Route
-          path="/"
-          component={PublicWrapper} />
+        <Route path="/" component={PublicWrapper} />
       </div>
     );
   }

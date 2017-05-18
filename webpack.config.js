@@ -8,7 +8,7 @@ const autoprefixer = require('autoprefixer');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProduction = nodeEnv === 'production';
-
+const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 const jsSourcePath = path.join(__dirname, './src');
 const buildPath = path.join(__dirname, './build');
 const assetsPath = path.join(__dirname, './src/assets');
@@ -110,7 +110,10 @@ if (isProduction) {
   // Development plugins
   plugins.push(
     new webpack.HotModuleReplacementPlugin(),
-    new DashboardPlugin()
+    new DashboardPlugin(),
+    new OpenBrowserPlugin({
+      url: 'http://localhost:3000'
+    })
   );
 
   // Development rules
