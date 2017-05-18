@@ -103,13 +103,13 @@ class DonationStore {
         value: this.personalInfo.email,
         message: 'You must supply a valid email address.'
       },
-      // phoneNumber: {
-      //   isValid: (hasLengthOf(10, this.personalInfo.phoneNumber)
-      //     && !isNotEmpty(this.personalInfo.phoneNumber))
-      //     || !isNotEmpty(this.personalInfo.phoneNumber),
-      //   value: this.personalInfo.phoneNumber,
-      //   message: 'The phone number must 10 digits only.'
-      // },
+      phoneNumber: {
+        isValid: (hasLengthOf(10, this.personalInfo.phoneNumber)
+          && !isNotEmpty(this.personalInfo.phoneNumber))
+          || !isNotEmpty(this.personalInfo.phoneNumber),
+        value: this.personalInfo.phoneNumber,
+        message: 'The phone number must 10 digits only.'
+      },
     };
   };
 }

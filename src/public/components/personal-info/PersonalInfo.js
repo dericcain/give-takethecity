@@ -38,6 +38,14 @@ class PersonalInfo extends Component {
     this.props.donation.updateDesignation(event.target.value);
   }
 
+  handleOnBlur(event) {
+    const { personalInfoValidation } = this.props.donation;
+    const { id } = event.target;
+    if (!personalInfoValidation[id].isValid) {
+      const validationErrors = document.getElementById('validation-errors');
+    }
+  }
+
   render() {
     return (
       <div className="personal-info transition-item">
@@ -55,37 +63,43 @@ class PersonalInfo extends Component {
           </select>
           <input id="firstName"
                  className="input-half left"
-                 onKeyUp={this.handleKeyUp.bind(this)}
+                 onChange={this.handleKeyUp.bind(this)}
+                 onBlur={this.handleOnBlur.bind(this)}
                  type="text"
                  placeholder="First Name" />
           <input id="lastName"
                  className="input-half right"
                  onChange={this.handleKeyUp.bind(this)}
+                 onBlur={this.handleOnBlur.bind(this)}
                  type="text"
                  placeholder="Last Name" />
           <input id="email"
-                 className="input"
+                 className="input input-one-third left"
                  onChange={this.handleKeyUp.bind(this)}
+                 onBlur={this.handleOnBlur.bind(this)}
                  type="email"
                  placeholder="Email" />
           <input id="address"
-                 className="input"
+                 className="input input-two-third right"
                  onChange={this.handleKeyUp.bind(this)}
+                 onBlur={this.handleOnBlur.bind(this)}
                  type="text"
                  placeholder="Address" />
           <input id="zipCode"
                  className="input-one-third left"
                  onChange={this.handleKeyUp.bind(this)}
+                 onBlur={this.handleOnBlur.bind(this)}
                  type="text"
                  placeholder="Zip" />
           <input id="phone"
                  className="input-two-third right"
                  onChange={this.handleKeyUp.bind(this)}
+                 onBlur={this.handleOnBlur.bind(this)}
                  type="text"
                  placeholder="Phone" />
           <DesignationComments />
         </div>
-        <div className="validation-errors">
+        <div id="validation-errors">
 
         </div>
       </div>
