@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { inject, observer } from 'mobx-react';
 import DesignationComments from './DesignationComments';
+import InputWrapper from '../common/InputWrapper';
 import icon from '../../../assets/icons/system_information.svg'
 import './PersonalInfo.sass';
+import _ from 'lodash';
 
 @inject('donation') @observer
 class PersonalInfo extends Component {
@@ -11,16 +12,30 @@ class PersonalInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      designations: []
+      designations: [],
+      sectionIsValid: false,
     }
   }
 
+  isSectionValid() {
+    const { donation } = this.props;
+    let fieldsWithErrors = [];
+    _.forIn(donation.personalInfoValidation, (field, key) => {
+      if (!field.isValid) {
+        fieldsWithErrors.push(key);
+      }
+    });
+
+    donation.setIsPersonalInfoSectionValid(fieldsWithErrors.length === 0);
+  }
+
   componentWillMount() {
-    axios.get('http://give.takethecity.dev/api/designations')
-         .then(response => {
-           this.setState({designations: response.data});
-         })
-         .catch(error => console.log(error));
+    fetch('http://give.takethecity.dev/api/designations')
+    .then(response => response.json())
+    .then(designations => {
+      this.setState({ designations });
+    })
+    .catch(error => console.log(error));
   }
 
   handleKeyUp(event) {
@@ -30,7 +45,6 @@ class PersonalInfo extends Component {
   }
 
   checkIfValid() {
-    console.log(this.props.donation.personalInfoValidation);
     return this.props.donation.personalInfoValidation;
   }
 
@@ -41,12 +55,21 @@ class PersonalInfo extends Component {
   handleOnBlur(event) {
     const { personalInfoValidation } = this.props.donation;
     const { id } = event.target;
+    const input = event.target;
+    const errorMessage = document.querySelector(`.error-${id}`);
     if (!personalInfoValidation[id].isValid) {
-      const validationErrors = document.getElementById('validation-errors');
+      errorMessage.classList.remove('hidden');
+      input.classList.add('input-error');
+    } else {
+      errorMessage.classList.add('hidden');
+      input.classList.remove('input-error');
     }
+    this.isSectionValid();
   }
 
   render() {
+    const { personalInfoValidation } = this.props.donation;
+
     return (
       <div className="personal-info transition-item">
         <img src={icon} alt="Personal Information" />
@@ -61,46 +84,61 @@ class PersonalInfo extends Component {
             {this.state.designations
                  .map(item => <option key={item.id} value={item.id}>{item.name}</option>)}
           </select>
-          <input id="firstName"
-                 className="input-half left"
-                 onChange={this.handleKeyUp.bind(this)}
-                 onBlur={this.handleOnBlur.bind(this)}
-                 type="text"
-                 placeholder="First Name" />
-          <input id="lastName"
-                 className="input-half right"
-                 onChange={this.handleKeyUp.bind(this)}
-                 onBlur={this.handleOnBlur.bind(this)}
-                 type="text"
-                 placeholder="Last Name" />
-          <input id="email"
-                 className="input input-one-third left"
-                 onChange={this.handleKeyUp.bind(this)}
-                 onBlur={this.handleOnBlur.bind(this)}
-                 type="email"
-                 placeholder="Email" />
-          <input id="address"
-                 className="input input-two-third right"
-                 onChange={this.handleKeyUp.bind(this)}
-                 onBlur={this.handleOnBlur.bind(this)}
-                 type="text"
-                 placeholder="Address" />
-          <input id="zipCode"
-                 className="input-one-third left"
-                 onChange={this.handleKeyUp.bind(this)}
-                 onBlur={this.handleOnBlur.bind(this)}
-                 type="text"
-                 placeholder="Zip" />
-          <input id="phone"
-                 className="input-two-third right"
-                 onChange={this.handleKeyUp.bind(this)}
-                 onBlur={this.handleOnBlur.bind(this)}
-                 type="text"
-                 placeholder="Phone" />
+          <InputWrapper
+            size="half left"
+            name="firstName"
+            type="text"
+            placeHolder="First Name"
+            onChange={this.handleKeyUp.bind(this)}
+            onBlur={this.handleOnBlur.bind(this)}
+            errorMessage={personalInfoValidation.firstName.message}
+          />
+          <InputWrapper
+            size="half right"
+            name="lastName"
+            type="text"
+            placeHolder="Last Name"
+            onChange={this.handleKeyUp.bind(this)}
+            onBlur={this.handleOnBlur.bind(this)}
+            errorMessage={personalInfoValidation.lastName.message}
+          />
+          <InputWrapper
+            size="one-third left"
+            name="email"
+            type="email"
+            placeHolder="Email"
+            onChange={this.handleKeyUp.bind(this)}
+            onBlur={this.handleOnBlur.bind(this)}
+            errorMessage={personalInfoValidation.email.message}
+          />
+          <InputWrapper
+            size="two-third right"
+            name="address"
+            type="text"
+            placeHolder="Address"
+            onChange={this.handleKeyUp.bind(this)}
+            onBlur={this.handleOnBlur.bind(this)}
+            errorMessage={personalInfoValidation.address.message}
+          />
+          <InputWrapper
+            size="one-third left"
+            name="zipCode"
+            type="number"
+            placeHolder="Zip Code"
+            onChange={this.handleKeyUp.bind(this)}
+            onBlur={this.handleOnBlur.bind(this)}
+            errorMessage={personalInfoValidation.zipCode.message}
+          />
+          <InputWrapper
+            size="two-third right"
+            name="phoneNumber"
+            type="number"
+            placeHolder="Phone Number"
+            onChange={this.handleKeyUp.bind(this)}
+            onBlur={this.handleOnBlur.bind(this)}
+            errorMessage={personalInfoValidation.phoneNumber.message}
+          />
           <DesignationComments />
-        </div>
-        <div id="validation-errors">
-
         </div>
       </div>
     );

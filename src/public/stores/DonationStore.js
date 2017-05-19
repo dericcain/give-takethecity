@@ -20,6 +20,7 @@ class DonationStore {
     phoneNumber: '',
   };
   @observable designation;
+  @observable personalInfoSectionIsValid = false;
 
   @action('Set the donation amount')
   setAmount(amount) {
@@ -105,13 +106,18 @@ class DonationStore {
       },
       phoneNumber: {
         isValid: (hasLengthOf(10, this.personalInfo.phoneNumber)
-          && !isNotEmpty(this.personalInfo.phoneNumber))
+          && isNotEmpty(this.personalInfo.phoneNumber))
           || !isNotEmpty(this.personalInfo.phoneNumber),
         value: this.personalInfo.phoneNumber,
         message: 'The phone number must 10 digits only.'
       },
     };
   };
+
+  @action('Updates the validity of the personal info section')
+  setIsPersonalInfoSectionValid(isValid) {
+    this.personalInfoSectionIsValid = isValid;
+  }
 }
 
 export default new DonationStore();
