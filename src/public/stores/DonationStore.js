@@ -19,8 +19,16 @@ class DonationStore {
     email: '',
     phoneNumber: '',
   };
+  @observable paymentMethod = {
+    cc: '',
+    cvc: '',
+    expMonth: '',
+    expYear: '',
+    nameOnCard: '',
+  };
   @observable designation;
   @observable personalInfoSectionIsValid = false;
+  @observable paymentMethodSectionIsValid = false;
 
   @action('Set the donation amount')
   setAmount(amount) {
@@ -59,6 +67,11 @@ class DonationStore {
   @action('Updates personal info')
   updatePersonalInfo(field, value) {
     this.personalInfo[field] = value;
+  }
+
+  @action('Updates personal info')
+  updatePaymentMethod(field, value) {
+    this.paymentMethod[field] = value;
   }
 
   @action
@@ -117,6 +130,43 @@ class DonationStore {
   @action('Updates the validity of the personal info section')
   setIsPersonalInfoSectionValid(isValid) {
     this.personalInfoSectionIsValid = isValid;
+  }
+
+  @computed get paymentMethodValidation() {
+    return {
+      cc: {
+        isValid: isNotEmpty(this.paymentMethod.cc)
+          && isNumber(this.paymentMethod.cc),
+        value: this.paymentMethod.cc,
+        message: 'You must provide a credit card number.'
+      },
+      cvc: {
+        isValid: isNotEmpty(this.paymentMethod.cvc)
+          && isNumber(this.paymentMethod.cvc),
+        value: this.paymentMethod.cvc,
+        message: 'You must provide a CVC number.'
+      },
+      expMonth: {
+        isValid: true,
+        value: this.paymentMethod.expMonth,
+        message: 'You must enter an expiration month.'
+      },
+      expYear: {
+        isValid: true,
+        value: this.paymentMethod.expYear,
+        message: 'You must enter an expiration year.'
+      },
+      nameOnCard: {
+        isValid: isNotEmpty(this.paymentMethod.nameOnCard),
+        value: this.paymentMethod.nameOnCard,
+        message: 'You must provide the name of the card holder.'
+      },
+    };
+  };
+
+  @action('Updates the validity of the payment method section')
+  setIsPaymentMethodSectionValid(isValid) {
+    this.paymentMethodSectionIsValid = isValid;
   }
 }
 

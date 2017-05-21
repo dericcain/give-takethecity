@@ -1,4 +1,5 @@
 import React from 'react';
+import './InputWrapper.sass';
 
 const InputWrapper = (props) => {
 

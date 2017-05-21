@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import DesignationComments from './DesignationComments';
 import InputWrapper from '../common/InputWrapper';
+import { showErrorMessages } from '../../helpers/validators';
 import icon from '../../../assets/icons/system_information.svg'
 import './PersonalInfo.sass';
 import _ from 'lodash';
@@ -54,16 +55,8 @@ class PersonalInfo extends Component {
 
   handleOnBlur(event) {
     const { personalInfoValidation } = this.props.donation;
-    const { id } = event.target;
-    const input = event.target;
-    const errorMessage = document.querySelector(`.error-${id}`);
-    if (!personalInfoValidation[id].isValid) {
-      errorMessage.classList.remove('hidden');
-      input.classList.add('input-error');
-    } else {
-      errorMessage.classList.add('hidden');
-      input.classList.remove('input-error');
-    }
+    showErrorMessages(event, personalInfoValidation);
+    // Note: trying to extract...
     this.isSectionValid();
   }
 
