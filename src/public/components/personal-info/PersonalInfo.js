@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import DesignationComments from './DesignationComments';
 import InputWrapper from '../common/InputWrapper';
-import { showErrorMessages } from '../../helpers/validators';
+import { showErrorMessages, sectionIsValid } from '../../helpers/validators';
 import icon from '../../../assets/icons/system_information.svg'
 import './PersonalInfo.sass';
-import _ from 'lodash';
 
 @inject('donation') @observer
 class PersonalInfo extends Component {
@@ -16,18 +15,6 @@ class PersonalInfo extends Component {
       designations: [],
       sectionIsValid: false,
     }
-  }
-
-  isSectionValid() {
-    const { donation } = this.props;
-    let fieldsWithErrors = [];
-    _.forIn(donation.personalInfoValidation, (field, key) => {
-      if (!field.isValid) {
-        fieldsWithErrors.push(key);
-      }
-    });
-
-    donation.setIsPersonalInfoSectionValid(fieldsWithErrors.length === 0);
   }
 
   componentWillMount() {
@@ -54,10 +41,9 @@ class PersonalInfo extends Component {
   }
 
   handleOnBlur(event) {
-    const { personalInfoValidation } = this.props.donation;
-    showErrorMessages(event, personalInfoValidation);
-    // Note: trying to extract...
-    this.isSectionValid();
+    const { donation } = this.props;
+    showErrorMessages(event, donation.personalInfoValidation);
+    donation.setIsPersonalInfoSectionValid(sectionIsValid(donation.personalInfoValidation));
   }
 
   render() {

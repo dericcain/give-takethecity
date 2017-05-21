@@ -64,6 +64,12 @@ class DonationStore {
     return this.amount;
   }
 
+  @computed get fullName() {
+    const { firstName, lastName } = this.personalInfo;
+
+    return `${firstName} ${lastName}`;
+  }
+
   @action('Updates personal info')
   updatePersonalInfo(field, value) {
     this.personalInfo[field] = value;
@@ -120,7 +126,7 @@ class DonationStore {
       phoneNumber: {
         isValid: (hasLengthOf(10, this.personalInfo.phoneNumber)
           && isNotEmpty(this.personalInfo.phoneNumber))
-          || !isNotEmpty(this.personalInfo.phoneNumber),
+        || !isNotEmpty(this.personalInfo.phoneNumber),
         value: this.personalInfo.phoneNumber,
         message: 'The phone number must 10 digits only.'
       },
@@ -136,23 +142,23 @@ class DonationStore {
     return {
       cc: {
         isValid: isNotEmpty(this.paymentMethod.cc)
-          && isNumber(this.paymentMethod.cc),
+        && isNumber(this.paymentMethod.cc),
         value: this.paymentMethod.cc,
         message: 'You must provide a credit card number.'
       },
       cvc: {
         isValid: isNotEmpty(this.paymentMethod.cvc)
-          && isNumber(this.paymentMethod.cvc),
+        && isNumber(this.paymentMethod.cvc),
         value: this.paymentMethod.cvc,
         message: 'You must provide a CVC number.'
       },
       expMonth: {
-        isValid: true,
+        isValid: isNotEmpty(this.paymentMethod.expMonth),
         value: this.paymentMethod.expMonth,
         message: 'You must enter an expiration month.'
       },
       expYear: {
-        isValid: true,
+        isValid: isNotEmpty(this.paymentMethod.expYear),
         value: this.paymentMethod.expYear,
         message: 'You must enter an expiration year.'
       },
@@ -166,6 +172,7 @@ class DonationStore {
 
   @action('Updates the validity of the payment method section')
   setIsPaymentMethodSectionValid(isValid) {
+    console.log(isValid);
     this.paymentMethodSectionIsValid = isValid;
   }
 }

@@ -30,14 +30,12 @@ export function showErrorMessages(event, validationType) {
   }
 }
 
-export function isSectionValid(validationObject, callback) {
-  const { donation } = this.props;
+export function sectionIsValid(validationObject) {
   let fieldsWithErrors = [];
   _.forIn(validationObject, (field, key) => {
     if (!field.isValid) {
       fieldsWithErrors.push(key);
     }
   });
-
-  callback(fieldsWithErrors.length === 0);
+  return fieldsWithErrors.length === 0;
 }

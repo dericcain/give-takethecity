@@ -9,7 +9,7 @@ export default class NavButtons extends Component {
 
   constructor(props) {
     super(props);
-    const { navigation, location } = this.props;
+    const { navigation, location } = props;
     navigation.updateNavButtonUrl(location.pathname, location.action);
     this.listenForPageChange();
   }

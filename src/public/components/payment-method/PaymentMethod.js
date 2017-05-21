@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-import _ from 'lodash';
-import { showErrorMessages, isSectionValid } from '../../helpers/validators';
+import { showErrorMessages, sectionIsValid } from '../../helpers/validators';
 import InputWrapper from '../common/InputWrapper';
 import SelectWrapper from '../common/SelectWrapper';
 import icon from '../../../assets/icons/wallet.svg'
@@ -34,34 +33,30 @@ class PaymentMethod extends Component {
     });
   }
 
-  handleKeyUp() {
-
+  handleOnChange(event) {
+    const { id, value } = event.target;
+    this.props.donation.updatePaymentMethod(id, value);
   }
 
   handleOnBlur(event) {
-    const {
-      paymentMethodValidation,
-      setIsPaymentMethodSectionValid
-    } = this.props.donation;
-    showErrorMessages(event, paymentMethodValidation);
-    // Note: Not sure about this...
-    isSectionValid(paymentMethodValidation, setIsPaymentMethodSectionValid());
-  }
-
-  handleSelectChange() {
-
-  }
-
-  isSectionValid() {
     const { donation } = this.props;
-    let fieldsWithErrors = [];
-    _.forIn(donation.paymentMethodValidation, (field, key) => {
-      if (!field.isValid) {
-        fieldsWithErrors.push(key);
-      }
-    });
+    showErrorMessages(event, donation.paymentMethodValidation);
+    donation.setIsPaymentMethodSectionValid(sectionIsValid(donation.paymentMethodValidation));
+  }
 
-    donation.setIsPaymentMethodSectionValid(fieldsWithErrors.length === 0);
+  handleSelectChange(event) {
+    const { id, value } = event.target;
+    this.props.donation.updatePaymentMethod(id, value);
+
+    if (this.isDropdownChange(event)) {
+      this.handleOnBlur(event);
+    }
+  }
+
+  isDropdownChange(event) {
+    const { id } = event.target;
+
+    return id === 'expMonth' || id === 'expYear';
   }
 
   render() {
@@ -77,7 +72,7 @@ class PaymentMethod extends Component {
             name="nameOnCard"
             type="text"
             placeHolder="Name on card"
-            onChange={this.handleKeyUp.bind(this)}
+            onChange={this.handleOnChange.bind(this)}
             onBlur={this.handleOnBlur.bind(this)}
             errorMessage={paymentMethodValidation.nameOnCard.message}
           />
@@ -86,7 +81,7 @@ class PaymentMethod extends Component {
             name="cc"
             type="number"
             placeHolder="Credit Card"
-            onChange={this.handleKeyUp.bind(this)}
+            onChange={this.handleOnChange.bind(this)}
             onBlur={this.handleOnBlur.bind(this)}
             errorMessage={paymentMethodValidation.cc.message}
           />
@@ -95,7 +90,7 @@ class PaymentMethod extends Component {
             name="cvc"
             type="number"
             placeHolder="CVC"
-            onChange={this.handleKeyUp.bind(this)}
+            onChange={this.handleOnChange.bind(this)}
             onBlur={this.handleOnBlur.bind(this)}
             errorMessage={paymentMethodValidation.cvc.message}
           />
