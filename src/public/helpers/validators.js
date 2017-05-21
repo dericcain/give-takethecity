@@ -1,4 +1,5 @@
 import validator from 'validator';
+import _ from 'lodash';
 
 export function isNotEmpty(value) {
   return value !== '';

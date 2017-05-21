@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
+import _ from 'lodash';
 import { showErrorMessages, isSectionValid } from '../../helpers/validators';
 import InputWrapper from '../common/InputWrapper';
 import SelectWrapper from '../common/SelectWrapper';
