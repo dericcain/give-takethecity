@@ -4,12 +4,25 @@ class NavigationStore {
   @observable previousPage = '/';
   @observable currentPage;
   @observable nextPage;
+  @observable amountSectionIsValid = false;
+  @observable personalInfoSectionIsValid = false;
+  @observable creditCardSectionIsValid = false;
 
   @action
   setUrlState(previousPage, currentPage, nextPage) {
     this.previousPage = previousPage;
     this.currentPage = currentPage;
     this.nextPage = nextPage;
+  }
+
+  @action
+  setAmountSectionValid(isValid) {
+    this.amountSectionIsValid = isValid;
+  }
+
+  @action
+  setPersonalInfoSectionValid(isValid) {
+    this.personalInfoSectionIsValid = isValid;
   }
 
   updateNavButtonUrl(currentPage, action) {

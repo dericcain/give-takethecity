@@ -1,0 +1,53 @@
+.personal-info {
+  padding: 12px 18px; }
+  .personal-info img {
+    display: block;
+    margin: 0 auto; }
+  .personal-info .personal-info-fields {
+    display: flex;
+    flex-wrap: wrap; }
+    .personal-info .personal-info-fields .input-wrapper {
+      display: flex;
+      width: calc(50% - 6px);
+      flex-direction: column; }
+      .personal-info .personal-info-fields .input-wrapper .input-error {
+        border: 1px solid #f44336 !important;
+        margin-bottom: 2px; }
+      .personal-info .personal-info-fields .input-wrapper.left {
+        margin-right: 6px; }
+      .personal-info .personal-info-fields .input-wrapper.right {
+        margin-left: 6px; }
+      .personal-info .personal-info-fields .input-wrapper.one-third {
+        display: flex;
+        width: calc(30% - 6px); }
+        .personal-info .personal-info-fields .input-wrapper.one-third.left {
+          margin-right: 6px; }
+      .personal-info .personal-info-fields .input-wrapper.two-third {
+        display: flex;
+        width: calc(70% - 6px); }
+        .personal-info .personal-info-fields .input-wrapper.two-third.right {
+          margin-left: 6px; }
+
+#validation-errors p {
+  font-size: 12px;
+  color: #8F0900;
+  margin: 0; }
+
+.error-wrapper {
+  margin-top: -10px;
+  margin-bottom: 4px;
+  display: flex;
+  width: 100%; }
+
+.error {
+  font-size: 11px;
+  color: #f44336;
+  width: 100%;
+  padding-left: 2px;
+  margin-bottom: 6px; }
+  .error.right {
+    padding-left: 8px; }
+  .error.error-one-third {
+    width: calc(30% - 6px); }
+  .error.error-two-third {
+    width: calc(70% - 6px); }

@@ -9,6 +9,11 @@ const FullWidthButton = ({ url, isValid, children }) => {
         pathname: url,
         state: { direction: 'next' }
       }}
+      onClick={event => {
+        if (isValid) {
+          event.preventDefault();
+        }
+      } }
       className={`btn-full-width ${isValid}`}>
       {children}
     </Link>
