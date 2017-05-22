@@ -14,6 +14,7 @@ class DesignationComments extends Component {
           <textarea
             id="staffSupport"
             className="textarea"
+            onChange={this.props.onChange}
             placeholder="What staff member would you like to support?"
           />
         );
@@ -23,6 +24,7 @@ class DesignationComments extends Component {
             id="missionSupport"
             rows="2"
             className="textarea"
+            onChange={this.props.onChange}
             placeholder="Who would you like to support? Also, what trip are they going on?"
           />
         );
@@ -32,6 +34,7 @@ class DesignationComments extends Component {
             id="generalComments"
             rows="2"
             className="textarea"
+            onChange={this.props.onChange}
             placeholder="Do you have any additional comments?"
           />
         );

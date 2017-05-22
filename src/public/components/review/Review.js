@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import icon from '../../../assets/icons/checkmark.svg';
+import loader from '../../../assets/images/loader.svg';
 import './Review.sass';
 
 @inject('navigation') @inject('donation') @observer
 class Review extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: false,
+    }
+  }
 
   getReviewSection() {
     const { isRecurring, total } = this.props.donation;
@@ -23,6 +31,11 @@ class Review extends Component {
     );
   }
 
+  handleOnClick(event) {
+    this.setState({ isLoading: true });
+    this.props.donation.submitDonation();
+  }
+
   render() {
     const { donation } = this.props;
     return (
@@ -35,7 +48,13 @@ class Review extends Component {
           As a side note, we will use that address to mail your donation receipts.</p>
         <p>If everything above looks good, click the give button below and let's partner together to transform a
           city!</p>
-        <button className="button btn-block button-submit m-t-24" id="submit-donation">Give now!</button>
+        <button
+          className="btn btn-block btn-submit m-t-24"
+          onClick={this.handleOnClick.bind(this)}
+          id="submit-donation">
+            <span className="btn-text">Give now!</span>
+            <img src={loader} alt="Loading" className="btn-loading hidden" />
+        </button>
       </div>
     );
   }

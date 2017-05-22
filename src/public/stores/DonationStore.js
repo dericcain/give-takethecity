@@ -18,6 +18,9 @@ class DonationStore {
     zipCode: '',
     email: '',
     phoneNumber: '',
+    generalComments: '',
+    missionsSupport: '',
+    staffSupport: ''
   };
   @observable paymentMethod = {
     cc: '',
@@ -174,6 +177,10 @@ class DonationStore {
   setIsPaymentMethodSectionValid(isValid) {
     console.log(isValid);
     this.paymentMethodSectionIsValid = isValid;
+  }
+
+  submitDonation() {
+
   }
 }
 

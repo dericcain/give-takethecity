@@ -117,7 +117,9 @@ class PersonalInfo extends Component {
             onBlur={this.handleOnBlur.bind(this)}
             errorMessage={personalInfoValidation.phoneNumber.message}
           />
-          <DesignationComments />
+          <DesignationComments
+            onChange={this.handleKeyUp.bind(this)}
+          />
         </div>
       </div>
     );
