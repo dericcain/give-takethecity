@@ -5,11 +5,11 @@ import {
   isEmail,
   isNumber
 } from '../helpers/validators';
-
+import { headers } from '../helpers/request';
 class DonationStore {
   feePercentage = .026;
   @observable amount = 0;
-  @observable isCoveringFees;
+  @observable isPayingFees = false;
   @observable isRecurring = false;
   @observable personalInfo = {
     firstName: '',
@@ -29,9 +29,10 @@ class DonationStore {
     expYear: '',
     nameOnCard: '',
   };
-  @observable designation;
+  @observable designation = 1;
   @observable personalInfoSectionIsValid = false;
   @observable paymentMethodSectionIsValid = false;
+  @observable token = null;
 
   @action('Set the donation amount')
   setAmount(amount) {
@@ -56,11 +57,11 @@ class DonationStore {
 
   @action('Toggles covering donation fees')
   toggleCoverFees() {
-    this.isCoveringFees = !this.isCoveringFees;
+    this.isPayingFees = !this.isPayingFees;
   }
 
   @computed get total() {
-    if (this.isCoveringFees) {
+    if (this.isPayingFees) {
       return this.amount + this.fees;
     }
 
@@ -175,13 +176,68 @@ class DonationStore {
 
   @action('Updates the validity of the payment method section')
   setIsPaymentMethodSectionValid(isValid) {
-    console.log(isValid);
     this.paymentMethodSectionIsValid = isValid;
   }
 
   submitDonation() {
-
+    window.Stripe.setPublishableKey('pk_test_ChITsYRvgyTVX5FQQtQhdNWx');
+    const self = this;
+    window.Stripe.card.createToken({
+      number: self.paymentMethod.cc,
+      cvc: self.paymentMethod.cvc,
+      exp_month: self.paymentMethod.expMonth,
+      exp_year: self.paymentMethod.expYear,
+    }, this.sendDataToServer.bind(this));
+    return false;
   }
+
+  sendDataToServer(status, response) {
+    const self = this;
+    if (status !== 200) {
+      // Todo: return a meaningful message here...
+      console.log(response);
+      return false;
+    } else {
+      self.setStripeToken(response.id);
+      fetch('http://give.takethecity.dev/api/donations', {
+        method: 'POST',
+        mode: 'CORS',
+        redirect: 'follow',
+        body: JSON.stringify(self.donationSubmissionObject)
+      })
+           .then(response => {
+             console.log(response);
+             return response.json()
+           })
+           .catch(error => {
+             console.log(error);
+           });
+    }
+  }
+
+  @action('Set the Stripe token')
+  setStripeToken(token) {
+    this.token = token;
+  }
+  
+  @computed get donationSubmissionObject() {
+    return {
+      token: this.token,
+      first_name: this.personalInfo.firstName,
+      last_name: this.personalInfo.lastName,
+      email: this.personalInfo.email,
+      address: this.personalInfo.address,
+      zip: this.personalInfo.zipCode,
+      phone: this.personalInfo.phone,
+      amount: this.total * 100,
+      designation: this.designation,
+      is_paying_fees: this.isPayingFees,
+      mission_support: this.personalInfo.missionsSupport,
+      staff_support: this.personalInfo.staffSupport,
+      is_recurring: this.isRecurring
+    }
+  }
+
 }
 
 export default new DonationStore();

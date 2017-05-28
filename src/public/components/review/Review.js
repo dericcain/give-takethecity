@@ -52,8 +52,8 @@ class Review extends Component {
           className="btn btn-block btn-submit m-t-24"
           onClick={this.handleOnClick.bind(this)}
           id="submit-donation">
-            <span className="btn-text">Give now!</span>
-            <img src={loader} alt="Loading" className="btn-loading hidden" />
+            <span className={`btn-text ${this.state.isLoading ? '' : 'hidden' }`}>Give now!</span>
+            <img src={loader} alt="Loading" className={`btn-loading ${this.state.isLoading ? 'hidden' : '' }`} />
         </button>
       </div>
     );

@@ -18,12 +18,15 @@ class PersonalInfo extends Component {
   }
 
   componentWillMount() {
-    fetch('http://give.takethecity.dev/api/designations')
-    .then(response => response.json())
-    .then(designations => {
-      this.setState({ designations });
+    fetch('http://give.takethecity.dev/api/designations', {
+      mode: 'CORS',
+      method: 'GET'
     })
-    .catch(error => console.log(error));
+      .then(response => response.json())
+      .then(designations => {
+        this.setState({ designations });
+      })
+      .catch(error => console.log(error));
   }
 
   handleKeyUp(event) {
