@@ -210,7 +210,7 @@ class DonationStore {
       };
     } else {
       self.setStripeToken(response.id);
-      fetch('http://api.takethecity.com/api/donations', {
+      fetch('https://api.takethecity.com/api/donations', {
         method: 'POST',
         mode: 'CORS',
         redirect: 'follow',
@@ -236,7 +236,7 @@ class DonationStore {
         this.isSubmittingRequest = false;
         self.response = {
           status: 'error',
-          message: error.error
+          message: 'There was a server error and we are looking into what happened.'
         };
       });
     }
