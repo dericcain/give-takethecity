@@ -210,7 +210,7 @@ class DonationStore {
       };
     } else {
       self.setStripeToken(response.id);
-      fetch('http://give.takethecity.dev/api/donations', {
+      fetch('http://api.takethecity.com/api/donations', {
         method: 'POST',
         mode: 'CORS',
         redirect: 'follow',

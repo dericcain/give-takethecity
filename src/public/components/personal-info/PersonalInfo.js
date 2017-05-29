@@ -17,7 +17,7 @@ class PersonalInfo extends Component {
   }
 
   componentWillMount() {
-    fetch('http://give.takethecity.dev/api/designations', {
+    fetch('https://api.takethecity.com/api/designations', {
       mode: 'CORS',
       method: 'GET'
     })
