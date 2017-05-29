@@ -15,17 +15,7 @@ class NavigationStore {
     this.nextPage = nextPage;
   }
 
-  @action
-  setAmountSectionValid(isValid) {
-    this.amountSectionIsValid = isValid;
-  }
-
-  @action
-  setPersonalInfoSectionValid(isValid) {
-    this.personalInfoSectionIsValid = isValid;
-  }
-
-  updateNavButtonUrl(currentPage, action) {
+  updateNavButtonUrl(currentPage) {
     switch (currentPage) {
       case '/amount':
         this.setUrlState('/', currentPage, '/personal-info');

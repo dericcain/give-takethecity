@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 import icon from '../../../assets/icons/checkmark.svg';
 import loader from '../../../assets/images/loader.svg';
@@ -10,8 +11,8 @@ class Review extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: false,
-    }
+      redirect: false,
+    };
   }
 
   getReviewSection() {
@@ -31,13 +32,27 @@ class Review extends Component {
     );
   }
 
-  handleOnClick(event) {
-    this.setState({ isLoading: true });
+  handleOnClick() {
     this.props.donation.submitDonation();
+  }
+
+  renderErrorMessage() {
+    const { message, status } = this.props.donation.response;
+
+    return (
+      <div className={`error-message ${status === 'error' ? '' : 'hidden'}`}>
+        {message}
+      </div>
+    )
   }
 
   render() {
     const { donation } = this.props;
+
+    if (donation.response.status === 'success') {
+      return (<Redirect to="/success"/>);
+    }
+
     return (
       <div className="transition-item review-section">
         <img src={icon} alt="Review Section" />
@@ -48,12 +63,13 @@ class Review extends Component {
           As a side note, we will use that address to mail your donation receipts.</p>
         <p>If everything above looks good, click the give button below and let's partner together to transform a
           city!</p>
+        {this.renderErrorMessage()}
         <button
           className="btn btn-block btn-submit m-t-24"
           onClick={this.handleOnClick.bind(this)}
           id="submit-donation">
-            <span className={`btn-text ${this.state.isLoading ? '' : 'hidden' }`}>Give now!</span>
-            <img src={loader} alt="Loading" className={`btn-loading ${this.state.isLoading ? 'hidden' : '' }`} />
+            <span className={`btn-text ${donation.isSubmittingRequest ? 'hidden' : '' }`}>Give now!</span>
+            <img src={loader} alt="Loading" className={`btn-loading ${donation.isSubmittingRequest ? '' : 'hidden' }`} />
         </button>
       </div>
     );

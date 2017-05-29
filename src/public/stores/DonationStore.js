@@ -5,8 +5,9 @@ import {
   isEmail,
   isNumber
 } from '../helpers/validators';
-import { headers } from '../helpers/request';
+
 class DonationStore {
+
   feePercentage = .026;
   @observable amount = 0;
   @observable isPayingFees = false;
@@ -33,10 +34,16 @@ class DonationStore {
   @observable personalInfoSectionIsValid = false;
   @observable paymentMethodSectionIsValid = false;
   @observable token = null;
+  @observable isSubmittingRequest = false;
+  @observable response = {};
 
   @action('Set the donation amount')
   setAmount(amount) {
     this.amount = amount;
+  }
+
+  @computed get amountSectionIsValid() {
+    return !!this.amount;
   }
 
   @computed get fees() {
@@ -118,7 +125,7 @@ class DonationStore {
       },
       zipCode: {
         isValid: hasLengthOf(5, this.personalInfo.zipCode)
-          && isNumber(this.personalInfo.zipCode),
+        && isNumber(this.personalInfo.zipCode),
         value: this.personalInfo.zipCode,
         message: 'The zip code must be 5 digits long.'
       },
@@ -129,7 +136,7 @@ class DonationStore {
       },
       phoneNumber: {
         isValid: (hasLengthOf(10, this.personalInfo.phoneNumber)
-          && isNotEmpty(this.personalInfo.phoneNumber))
+        && isNotEmpty(this.personalInfo.phoneNumber))
         || !isNotEmpty(this.personalInfo.phoneNumber),
         value: this.personalInfo.phoneNumber,
         message: 'The phone number must 10 digits only.'
@@ -179,7 +186,9 @@ class DonationStore {
     this.paymentMethodSectionIsValid = isValid;
   }
 
+  @action('Updates the response object')
   submitDonation() {
+    this.isSubmittingRequest = true;
     window.Stripe.setPublishableKey('pk_test_ChITsYRvgyTVX5FQQtQhdNWx');
     const self = this;
     window.Stripe.card.createToken({
@@ -194,9 +203,11 @@ class DonationStore {
   sendDataToServer(status, response) {
     const self = this;
     if (status !== 200) {
-      // Todo: return a meaningful message here...
-      console.log(response);
-      return false;
+      this.isSubmittingRequest = false;
+      self.response = {
+        status: 'error',
+        message: response.error.message
+      };
     } else {
       self.setStripeToken(response.id);
       fetch('http://give.takethecity.dev/api/donations', {
@@ -205,13 +216,29 @@ class DonationStore {
         redirect: 'follow',
         body: JSON.stringify(self.donationSubmissionObject)
       })
-           .then(response => {
-             console.log(response);
-             return response.json()
-           })
-           .catch(error => {
-             console.log(error);
-           });
+      .then(jsonResponse => jsonResponse.json())
+      .then(response => {
+        if (response.error) {
+          self.response = {
+            status: 'error',
+            message: response.error.error.message
+          };
+        } else {
+          self.response = {
+            status: 'success',
+            message: response.message
+          };
+        }
+        this.isSubmittingRequest = false;
+      })
+      .catch(error => {
+        console.log(error);
+        this.isSubmittingRequest = false;
+        self.response = {
+          status: 'error',
+          message: error.error
+        };
+      });
     }
   }
 
@@ -219,7 +246,7 @@ class DonationStore {
   setStripeToken(token) {
     this.token = token;
   }
-  
+
   @computed get donationSubmissionObject() {
     return {
       token: this.token,

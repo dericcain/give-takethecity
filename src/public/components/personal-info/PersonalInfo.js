@@ -13,7 +13,6 @@ class PersonalInfo extends Component {
     super(props);
     this.state = {
       designations: [],
-      sectionIsValid: false,
     }
   }
 
@@ -32,11 +31,6 @@ class PersonalInfo extends Component {
   handleKeyUp(event) {
     const { id, value } = event.target;
     this.props.donation.updatePersonalInfo(id, value);
-    this.checkIfValid()
-  }
-
-  checkIfValid() {
-    return this.props.donation.personalInfoValidation;
   }
 
   handleDesignationChange(event) {
@@ -47,6 +41,8 @@ class PersonalInfo extends Component {
     const { donation } = this.props;
     showErrorMessages(event, donation.personalInfoValidation);
     donation.setIsPersonalInfoSectionValid(sectionIsValid(donation.personalInfoValidation));
+    console.log(donation.personalInfoSectionIsValid);
+    console.log(donation.personalInfoValidation);
   }
 
   render() {

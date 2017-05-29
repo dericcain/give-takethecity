@@ -27,9 +27,10 @@ class PublicWrapper extends Component {
 
   render() {
     const { location } = this.props;
+    const donation = DonationStore;
 
     return (
-      <Provider donation={DonationStore} navigation={NavigationStore}>
+      <Provider donation={donation} navigation={NavigationStore}>
         <div className="form-wrapper">
           <div className="form-container">
             <CSSTransitionGroup
@@ -42,9 +43,30 @@ class PublicWrapper extends Component {
               <Switch key={location.key} location={location}>
                 <Route exact path="/" render={() => <Redirect to="/amount" />} />
                 <Route path="/amount" key="1" component={Amount} />
-                <Route path="/personal-info" key="2" component={PersonalInfo} />
-                <Route path="/payment-method" key="3" component={PaymentMethod} />
-                <Route path="/review" key="4" component={Review} />
+                <Route path="/personal-info" key="2" render={() => {
+                  return donation.amountSectionIsValid ? (
+                      <PersonalInfo/>
+                    ) : (
+                      <Redirect to="/amount"/>
+                    )
+                  }
+                } />
+                <Route path="/payment-method" key="3" render={() => {
+                  return donation.personalInfoSectionIsValid ? (
+                    <PaymentMethod/>
+                  ) : (
+                    <Redirect to="/personal-info"/>
+                  )
+                }
+                } />
+                <Route path="/review" key="4" render={() => {
+                  return donation.paymentMethodSectionIsValid ? (
+                    <Review/>
+                  ) : (
+                    <Redirect to="/payment-method"/>
+                  )
+                }
+                } />
                 <Route path="/success" key="5" component={Success} />
               </Switch>
             </CSSTransitionGroup>
