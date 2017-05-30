@@ -63,7 +63,7 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
-    "deploy": "npm run build && firebase deploy"
+    "deploy": "yarn run build && firebase deploy"
   },
   "jest": {
     "collectCoverageFrom": [
