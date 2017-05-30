@@ -33,13 +33,16 @@ export default class SelectWrapper extends Component {
       onChange,
       errorMessage,
       size,
+      value
     } = this.props;
 
     return (
       <div className={`select-wrapper ${size}`}>
-        <select id={name}
-                defaultValue=""
-                onChange={onChange}>
+        <select
+          id={name}
+          value={value}
+          defaultValue=""
+          onChange={onChange}>
           {this.buildList()}
         </select>
         <span className={`hidden error error-${name}`}>
@@ -49,4 +52,3 @@ export default class SelectWrapper extends Component {
     );
   }
 }
-

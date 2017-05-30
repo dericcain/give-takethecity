@@ -8,6 +8,7 @@ const InputWrapper = (props) => {
     onChange,
     onBlur,
     placeHolder,
+    value,
     type,
     errorMessage,
     size
@@ -19,6 +20,7 @@ const InputWrapper = (props) => {
              onChange={onChange}
              onBlur={onBlur}
              type={type}
+             value={value}
              placeholder={placeHolder} />
       <span className={`hidden error error-${name}`}>
         {errorMessage}

@@ -6,7 +6,7 @@ import './DesignationComments.sass'
 class DesignationComments extends Component {
 
   showTextarea() {
-    const { designation } = this.props.donation;
+    const { designation, personalInfo } = this.props.donation;
 
     switch (designation) {
       case '4':
@@ -14,6 +14,7 @@ class DesignationComments extends Component {
           <textarea
             id="staffSupport"
             className="textarea"
+            value={personalInfo.staffSupport}
             onChange={this.props.onChange}
             placeholder="What staff member would you like to support?"
           />
@@ -24,6 +25,7 @@ class DesignationComments extends Component {
             id="missionSupport"
             rows="2"
             className="textarea"
+            value={personalInfo.missionSupport}
             onChange={this.props.onChange}
             placeholder="Who would you like to support? Also, what trip are they going on?"
           />
@@ -35,6 +37,7 @@ class DesignationComments extends Component {
             rows="2"
             className="textarea"
             onChange={this.props.onChange}
+            value={personalInfo.generalComments}
             placeholder="Do you have any additional comments?"
           />
         );

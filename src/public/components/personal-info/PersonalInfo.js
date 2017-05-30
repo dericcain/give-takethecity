@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import DesignationComments from './DesignationComments';
@@ -9,7 +10,15 @@ import './PersonalInfo.sass';
 @inject('donation') @observer
 class PersonalInfo extends Component {
 
-  constructor(props) {
+  state: {
+    designations: Array<{
+      id: number,
+      name: string,
+      email: ?string
+    }>
+  }
+
+  constructor(props :any) {
     super(props);
     this.state = {
       designations: [],
@@ -46,7 +55,15 @@ class PersonalInfo extends Component {
   }
 
   render() {
-    const { personalInfoValidation } = this.props.donation;
+    const { personalInfoValidation, designation } = this.props.donation;
+    const {
+      firstName,
+      lastName,
+      address,
+      zipCode,
+      email,
+      phoneNumber
+    } = this.props.donation.personalInfo;
 
     return (
       <div className="personal-info transition-item">
@@ -58,6 +75,7 @@ class PersonalInfo extends Component {
             id="designation"
             title="Designation"
             className="select-designation"
+            value={designation}
             onChange={this.handleDesignationChange.bind(this)}>
             {this.state.designations
                  .map(item => <option key={item.id} value={item.id}>{item.name}</option>)}
@@ -66,6 +84,7 @@ class PersonalInfo extends Component {
             size="half left"
             name="firstName"
             type="text"
+            value={firstName}
             placeHolder="First Name"
             onChange={this.handleKeyUp.bind(this)}
             onBlur={this.handleOnBlur.bind(this)}
@@ -75,6 +94,7 @@ class PersonalInfo extends Component {
             size="half right"
             name="lastName"
             type="text"
+            value={lastName}
             placeHolder="Last Name"
             onChange={this.handleKeyUp.bind(this)}
             onBlur={this.handleOnBlur.bind(this)}
@@ -84,6 +104,7 @@ class PersonalInfo extends Component {
             size="one-third left"
             name="email"
             type="email"
+            value={email}
             placeHolder="Email"
             onChange={this.handleKeyUp.bind(this)}
             onBlur={this.handleOnBlur.bind(this)}
@@ -93,6 +114,7 @@ class PersonalInfo extends Component {
             size="two-third right"
             name="address"
             type="text"
+            value={address}
             placeHolder="Address"
             onChange={this.handleKeyUp.bind(this)}
             onBlur={this.handleOnBlur.bind(this)}
@@ -102,6 +124,7 @@ class PersonalInfo extends Component {
             size="one-third left"
             name="zipCode"
             type="number"
+            value={zipCode}
             placeHolder="Zip Code"
             onChange={this.handleKeyUp.bind(this)}
             onBlur={this.handleOnBlur.bind(this)}
@@ -111,6 +134,7 @@ class PersonalInfo extends Component {
             size="two-third right"
             name="phoneNumber"
             type="number"
+            value={phoneNumber}
             placeHolder="Phone Number"
             onChange={this.handleKeyUp.bind(this)}
             onBlur={this.handleOnBlur.bind(this)}

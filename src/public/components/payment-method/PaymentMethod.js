@@ -61,6 +61,8 @@ class PaymentMethod extends Component {
 
   render() {
     const { paymentMethodValidation } = this.props.donation;
+    const { nameOnCard, cc, cvc, expMonth, expYear } = this.props.donation.paymentMethod;
+
     return (
       <div className="payment-method transition-item">
         <img src={icon} alt="Payment Method" />
@@ -72,6 +74,7 @@ class PaymentMethod extends Component {
             name="nameOnCard"
             type="text"
             placeHolder="Name on card"
+            value={nameOnCard}
             onChange={this.handleOnChange.bind(this)}
             onBlur={this.handleOnBlur.bind(this)}
             errorMessage={paymentMethodValidation.nameOnCard.message}
@@ -81,6 +84,7 @@ class PaymentMethod extends Component {
             name="cc"
             type="number"
             placeHolder="Credit Card"
+            value={cc}
             onChange={this.handleOnChange.bind(this)}
             onBlur={this.handleOnBlur.bind(this)}
             errorMessage={paymentMethodValidation.cc.message}
@@ -90,6 +94,7 @@ class PaymentMethod extends Component {
             name="cvc"
             type="number"
             placeHolder="CVC"
+            value={cvc}
             onChange={this.handleOnChange.bind(this)}
             onBlur={this.handleOnBlur.bind(this)}
             errorMessage={paymentMethodValidation.cvc.message}
@@ -99,6 +104,7 @@ class PaymentMethod extends Component {
             name="expMonth"
             placeHolder="Exp. Month"
             data={this.state.months}
+            value={expMonth}
             onChange={this.handleSelectChange.bind(this)}
             errorMessage={paymentMethodValidation.expMonth.message}
           />
@@ -107,6 +113,7 @@ class PaymentMethod extends Component {
             name="expYear"
             placeHolder="Exp. Year"
             data={this.state.years}
+            value={expYear}
             onChange={this.handleSelectChange.bind(this)}
             errorMessage={paymentMethodValidation.expYear.message}
           />
