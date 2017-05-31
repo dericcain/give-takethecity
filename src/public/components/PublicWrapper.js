@@ -5,6 +5,7 @@ import { Provider } from 'mobx-react';
 import DonationStore from '../stores/DonationStore';
 import NavigationStore from '../stores/NavigationStore';
 import NavButtons from './common/NavButtons';
+import URlParser from '../../helpers/url-parser';
 import {
   Amount,
   PersonalInfo,
@@ -15,13 +16,23 @@ import {
 import './PublicWrapper.sass';
 
 class PublicWrapper extends Component {
+  constructor(props) {
+    super(props);
+    const query = new URlParser(props.location.search);
+    this.designationQuery = query.designation() || 1;
+    this.amountQuery = query.amount() || 0;
+  }
+
+  componentWillMount() {
+    DonationStore.updateDesignation(this.designationQuery);
+    DonationStore.setAmount(this.amountQuery);
+  }
 
   handlePageTransition() {
     const { state } = this.props.location;
     if (state) {
       return state.direction;
     }
-
     return 'next';
   }
 

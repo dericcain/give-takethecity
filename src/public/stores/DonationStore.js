@@ -1,4 +1,5 @@
 import { observable, action, computed } from 'mobx';
+import axios from 'axios';
 import {
   isNotEmpty,
   hasLengthOf,
@@ -210,14 +211,9 @@ class DonationStore {
       };
     } else {
       self.setStripeToken(response.id);
-      fetch('https://api.takethecity.com/api/donations', {
-        method: 'POST',
-        mode: 'CORS',
-        redirect: 'follow',
-        body: JSON.stringify(self.donationSubmissionObject)
-      })
-      .then(jsonResponse => jsonResponse.json())
+      axios.post('https://api.takethecity.com/api/donations', self.donationSubmissionObject)
       .then(response => {
+        console.log(response);
         if (response.error) {
           self.response = {
             status: 'error',

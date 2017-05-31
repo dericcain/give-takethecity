@@ -26,6 +26,7 @@ class Amount extends Component {
           <input id="other-amount"
                  onChange={this.handleInputChange.bind(this)}
                  type="number"
+                 value={this.props.donation.amount}
                  placeholder="Other amount"
           />
         <CoverFees />

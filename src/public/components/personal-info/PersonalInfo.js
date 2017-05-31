@@ -1,6 +1,6 @@
-// @flow
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
+import axios from 'axios';
 import DesignationComments from './DesignationComments';
 import InputWrapper from '../common/InputWrapper';
 import { showErrorMessages, sectionIsValid } from '../../helpers/validators';
@@ -10,15 +10,7 @@ import './PersonalInfo.sass';
 @inject('donation') @observer
 class PersonalInfo extends Component {
 
-  state: {
-    designations: Array<{
-      id: number,
-      name: string,
-      email: ?string
-    }>
-  }
-
-  constructor(props :any) {
+  constructor(props) {
     super(props);
     this.state = {
       designations: [],
@@ -26,13 +18,9 @@ class PersonalInfo extends Component {
   }
 
   componentWillMount() {
-    fetch('https://api.takethecity.com/api/designations', {
-      mode: 'CORS',
-      method: 'GET'
-    })
-      .then(response => response.json())
-      .then(designations => {
-        this.setState({ designations });
+    axios.get('https://api.takethecity.com/api/designations')
+      .then(response => {
+        this.setState({ designations: response.data });
       })
       .catch(error => console.log(error));
   }
@@ -50,8 +38,6 @@ class PersonalInfo extends Component {
     const { donation } = this.props;
     showErrorMessages(event, donation.personalInfoValidation);
     donation.setIsPersonalInfoSectionValid(sectionIsValid(donation.personalInfoValidation));
-    console.log(donation.personalInfoSectionIsValid);
-    console.log(donation.personalInfoValidation);
   }
 
   render() {
