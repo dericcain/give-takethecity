@@ -14,7 +14,7 @@ class App extends Component {
     return (
       <div>
         <Switch>
-          {/*<Route path="/admin" component={AdminWrapper} />*/}
+          <Route path="/admin" component={AdminWrapper} />
           <Route path="/" component={PublicWrapper} />
           <Route render={() => <Redirect to="/amount" /> } />
         </Switch>

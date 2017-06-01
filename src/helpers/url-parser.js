@@ -1,6 +1,6 @@
 export default class URlParser {
 
-  constructor(queryString: string) {
+  constructor(queryString) {
     this.params = new URLSearchParams(queryString);
   }
 
@@ -9,6 +9,6 @@ export default class URlParser {
   }
 
   amount() {
-    return parseInt(this.params.get('amount'));
+    return parseInt(this.params.get('amount'), 10);
   }
 }

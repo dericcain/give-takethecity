@@ -8,6 +8,7 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import Login from './auth/Login';
 import Donation from './donations/Donation';
 import Donor from './donors/Donor';
+import Navigation from './layout/Navigation';
 
 export default class AdminWrapper extends Component {
   render() {
@@ -16,6 +17,7 @@ export default class AdminWrapper extends Component {
     return (
       <Provider donation={DonationStore} auth={AuthStore}>
         <div className="section-admin">
+          <Navigation />
           <CSSTransitionGroup
             component="div"
             className="transition-wrapper"
