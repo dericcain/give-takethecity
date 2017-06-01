@@ -4,13 +4,13 @@ import { Route, Redirect, Switch } from 'react-router-dom';
 import AuthStore from '../stores/AuthStore';
 import DonationStore from '../stores/DonationStore';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-
 import Login from './auth/Login';
 import Donation from './donations/Donation';
 import Donor from './donors/Donor';
 import Navigation from './layout/Navigation';
 
 export default class AdminWrapper extends Component {
+
   render() {
     const { location } = this.props;
 
