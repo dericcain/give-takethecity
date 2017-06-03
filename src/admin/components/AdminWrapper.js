@@ -5,9 +5,10 @@ import AuthStore from '../stores/AuthStore';
 import DonationStore from '../stores/DonationStore';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import Login from './auth/Login';
-import Donation from './donations/Donation';
+import Donations from './donations/Donations';
 import Donor from './donors/Donor';
 import Navigation from './layout/Navigation';
+import RecurringDonations from './recurring-donations/RecurringDonations';
 
 export default class AdminWrapper extends Component {
 
@@ -28,8 +29,9 @@ export default class AdminWrapper extends Component {
             <Switch key={location.key} location={location}>
               <Route exact path="/admin" render={() => <Redirect to="/admin/login" />} />
               <Route path="/admin/login" key="1" component={Login} />
-              <Route path="/admin/donations" key="2" component={Donation} />
-              <Route path="/admin/donors/:id" key="3" component={Donor} />
+              <Route path="/admin/donations" key="2" component={Donations} />
+              <Route path="/admin/recurring-donations" key="3" component={RecurringDonations} />
+              <Route path="/admin/donors/:id" key="4" component={Donor} />
             </Switch>
           </CSSTransitionGroup>
         </div>

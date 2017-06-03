@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import ReactTable from 'react-table';
 import moment from 'moment';
-import './DonationTable.sass';
+import './DonationsTable.sass';
 import 'react-table/react-table.css'
 
 export default class DonationTable extends Component {
@@ -18,7 +18,7 @@ export default class DonationTable extends Component {
       Cell: props => <span>{moment(props.value).format('M-d-Y M:hha')}</span>
     }, {
       id: 'designation',
-      Header: 'designation',
+      Header: 'Designation',
       accessor: donation => donation.designation.name
     }, {
       Header: 'Covering fees',

@@ -18,7 +18,7 @@ class PersonalInfo extends Component {
   }
 
   componentWillMount() {
-    axios.get('https://api.takethecity.com/api/designations')
+    axios.get(`${process.env.REACT_APP_API_BASE_URL}/designations`)
       .then(response => {
         this.setState({ designations: response.data });
       })

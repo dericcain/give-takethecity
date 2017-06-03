@@ -190,7 +190,7 @@ class DonationStore {
   @action('Updates the response object')
   submitDonation() {
     this.isSubmittingRequest = true;
-    window.Stripe.setPublishableKey('pk_test_ChITsYRvgyTVX5FQQtQhdNWx');
+    window.Stripe.setPublishableKey(process.env.REACT_APP_STRIPE_KEY);
     const self = this;
     window.Stripe.card.createToken({
       number: self.paymentMethod.cc,
@@ -211,7 +211,7 @@ class DonationStore {
       };
     } else {
       self.setStripeToken(response.id);
-      axios.post('https://api.takethecity.com/api/donations', self.donationSubmissionObject)
+      axios.post(`${process.env.REACT_APP_API_BASE_URL}/donations`, self.donationSubmissionObject)
       .then(response => {
         console.log(response);
         if (response.error) {

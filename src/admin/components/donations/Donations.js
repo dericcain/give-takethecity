@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-import DonationTable from '../tables/DonationTable';
-import './Donation.sass';
+import DonationTable from '../tables/DonationsTable';
+import './Donations.sass';
 
 @inject('donation') @observer
-class Donation extends Component {
+export default class Donations extends Component {
 
   componentWillMount() {
     this.props.donation.fetchDonations();
@@ -24,5 +24,3 @@ class Donation extends Component {
     );
   }
 }
-
-export default Donation;
