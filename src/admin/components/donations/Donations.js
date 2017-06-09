@@ -3,15 +3,15 @@ import { inject, observer } from 'mobx-react';
 import DonationTable from '../tables/DonationsTable';
 import './Donations.sass';
 
-@inject('donation') @observer
+@inject('donationStore') @observer
 export default class Donations extends Component {
 
   componentWillMount() {
-    this.props.donation.fetchDonations();
+    this.props.donationStore.fetchDonations();
   }
 
   render() {
-    const { isLoading, donations } = this.props.donation;
+    const { isLoading, donations } = this.props.donationStore;
 
     return (
       <div className="section-wrapper">

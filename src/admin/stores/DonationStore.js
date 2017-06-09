@@ -10,13 +10,13 @@ class DonationStore {
   @action('Gets the donations')
   fetchDonations() {
     this.startLoading();
-    axios.get('http://give.takethecity.dev/api/donations')
+    axios.get(`${process.env.REACT_APP_API_BASE_URL}/donations`)
          .then(response => {
            this.donations = response.data.donations;
            this.endLoading();
          })
          .catch(error => {
-           console.log(error);
+           console.error(error);
            this.endLoading();
          });
   }
@@ -24,13 +24,13 @@ class DonationStore {
   @action('Gets the recurring donations')
   fetchRecurringDonations() {
     this.startLoading();
-    axios.get('http://give.takethecity.dev/api/recurring-donations')
+    axios.get(`${process.env.REACT_APP_API_BASE_URL}/recurring-donations`)
          .then(response => {
            this.recurringDonations = response.data.donations;
            this.endLoading();
          })
          .catch(error => {
-           console.log(error);
+           console.error(error);
            this.endLoading();
          });
   }
@@ -43,6 +43,13 @@ class DonationStore {
   @action('Sets loading to false')
   endLoading() {
     this.isLoading = false;
+  }
+
+  @action('Update recurring donation')
+  updateRecurringDonation(value, event) {
+    console.log(event.target);
+    // const donationId = event.target.
+    // axios.post('http://give.takethecity.dev/api/recurring-donations')
   }
 }
 

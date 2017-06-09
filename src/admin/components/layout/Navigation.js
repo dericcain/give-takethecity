@@ -5,7 +5,12 @@ import './Navigation.sass';
 
 export default class Navigation extends Component {
 
-  render() {
+
+  renderNavigation() {
+    if (this.props.location.pathname === '/admin/login') {
+      return null;
+    }
+
     return (
       <nav>
         <div className="logo">
@@ -18,6 +23,10 @@ export default class Navigation extends Component {
         </div>
       </nav>
     );
+  }
+
+  render() {
+    return this.renderNavigation();
   }
 }
 

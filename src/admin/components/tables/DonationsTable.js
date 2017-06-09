@@ -51,6 +51,7 @@ export default class DonationTable extends Component {
         columns={this.composeColumns()}
         loading={isLoading}
         defaultPageSize={50}
+        minRows={3}
       />
     );
   }

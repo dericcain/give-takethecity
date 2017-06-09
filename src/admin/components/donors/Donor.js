@@ -48,10 +48,6 @@ export default class Donor extends Component {
   }
 
   render() {
-    return (
-      <div className="section-wrapper">
-        {this.renderDonorFields()}
-      </div>
-    );
+    return this.renderDonorFields();
   }
 }

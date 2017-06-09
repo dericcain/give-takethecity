@@ -17,9 +17,8 @@ export default class Login extends Component {
   handleOnClick() {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
-    const { authenticateUser, checkAuth } = this.props.auth;
-    authenticateUser(email, password);
-    this.setState({ isAuthenticated: checkAuth() })
+    this.props.auth.authenticateUser(email, password);
+    this.setState({ isAuthenticated: this.props.auth.checkAuth() })
   }
 
   showLoginErrors() {

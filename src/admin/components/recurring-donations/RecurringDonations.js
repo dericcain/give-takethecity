@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import RecurringDonationsTable from '../tables/RecurringDonationsTable';
 
-@inject('donation') @observer
+@inject('donationStore') @observer
 export default class RecurringDonations extends Component {
 
   componentWillMount() {
-    this.props.donation.fetchRecurringDonations();
+    this.props.donationStore.fetchRecurringDonations();
   }
 
   render() {
-    const { isLoading, recurringDonations } = this.props.donation;
+    const { isLoading, recurringDonations } = this.props.donationStore;
 
     return (
       <div className="section-wrapper">

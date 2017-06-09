@@ -28,8 +28,6 @@ export default class DonorDonationsTable extends Component {
       accessor: 'amount',
       Cell: props => <span>${props.value / 100}</span>
     }];
-
-
   }
 
   render() {
@@ -41,6 +39,7 @@ export default class DonorDonationsTable extends Component {
         columns={this.composeColumns()}
         loading={isLoading}
         defaultPageSize={50}
+        minRows={3}
       />
     );
   }
