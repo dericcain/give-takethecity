@@ -11,6 +11,7 @@ import Donor from './donors/Donor';
 import Donors from './donors/Donors';
 import Navigation from './layout/Navigation';
 import RecurringDonations from './recurring-donations/RecurringDonations';
+import './AdminWrapper.sass';
 
 export default class AdminWrapper extends Component {
 
@@ -39,7 +40,7 @@ export default class AdminWrapper extends Component {
           <Navigation {...this.props} />
           <CSSTransitionGroup
             component="div"
-            className="transition-wrapper"
+            className="transition-wrapper-admin"
             transitionName='fade'
             transitionEnterTimeout={700}
             transitionLeaveTimeout={700}

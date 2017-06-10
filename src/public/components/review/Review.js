@@ -65,7 +65,7 @@ class Review extends Component {
           city!</p>
         {this.renderErrorMessage()}
         <button
-          className="btn btn-block btn-submit m-t-24"
+          className="btn btn-block btn-submit btn-success m-t-24"
           onClick={this.handleOnClick.bind(this)}
           id="submit-donation">
             <span className={`btn-text ${donation.isSubmittingRequest ? 'hidden' : '' }`}>Give now!</span>

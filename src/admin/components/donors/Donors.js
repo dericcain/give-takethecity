@@ -13,12 +13,14 @@ export default class Donors extends Component {
     const { donors, isLoading } = this.props.donorStore;
 
     return (
-      <div className="section-wrapper">
-        <h2>Donations</h2>
-      <DonorsTable
-        donors={donors}
-        isLoading={isLoading}
-        />
+      <div className="transition-item">
+        <h2 className="section-header">Donors</h2>
+        <div className="section-wrapper">
+          <DonorsTable
+            donors={donors}
+            isLoading={isLoading}
+            />
+        </div>
       </div>
     )
   }

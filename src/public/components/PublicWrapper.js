@@ -5,6 +5,7 @@ import { Provider } from 'mobx-react';
 import DonationStore from '../stores/DonationStore';
 import NavigationStore from '../stores/NavigationStore';
 import NavButtons from './common/NavButtons';
+import trackPageView from '../../helpers/analytics';
 import URlParser from '../../helpers/url-parser';
 import {
   Amount,
@@ -26,6 +27,13 @@ class PublicWrapper extends Component {
   componentWillMount() {
     DonationStore.updateDesignation(this.designationQuery);
     DonationStore.setAmount(this.amountQuery);
+    this.trackPageViews();
+  }
+
+  trackPageViews() {
+    this.props.history.listen(() => {
+      trackPageView();
+    });
   }
 
   handlePageTransition() {

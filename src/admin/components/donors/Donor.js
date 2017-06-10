@@ -34,7 +34,7 @@ export default class Donor extends Component {
       return <Loader/>
     }
     return (
-      <div>
+      <div className="transition-item">
         <DonorFields
           donor={donor}
           isLoading={isLoading}

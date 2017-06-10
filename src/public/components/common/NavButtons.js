@@ -50,6 +50,8 @@ export default class NavButtons extends Component {
             canMoveForward={donation.paymentMethodSectionIsValid}
           />
         );
+      case '/success':
+        return null;
       default:
         return (
           <PrevNextButtons

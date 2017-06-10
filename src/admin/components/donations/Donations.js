@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import DonationTable from '../tables/DonationsTable';
-import './Donations.sass';
 
 @inject('donationStore') @observer
 export default class Donations extends Component {
@@ -14,12 +13,14 @@ export default class Donations extends Component {
     const { isLoading, donations } = this.props.donationStore;
 
     return (
-      <div className="section-wrapper">
-        <h2>Donations</h2>
-        <DonationTable
-          donations={donations}
-          isLoading={isLoading}
-        />
+      <div className="transition-item">
+        <h2 className="section-header">Donations</h2>
+        <div className="section-wrapper">
+          <DonationTable
+            donations={donations}
+            isLoading={isLoading}
+          />
+        </div>
       </div>
     );
   }

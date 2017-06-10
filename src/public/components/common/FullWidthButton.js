@@ -14,7 +14,7 @@ const FullWidthButton = ({ url, isValid, children }) => {
           event.preventDefault();
         }
       } }
-      className={`btn-full-width ${isValid}`}>
+      className={`btn-full-width btn-success ${isValid}`}>
       {children}
     </Link>
   )

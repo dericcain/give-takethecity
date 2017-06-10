@@ -13,12 +13,14 @@ export default class RecurringDonations extends Component {
     const { isLoading, recurringDonations } = this.props.donationStore;
 
     return (
-      <div className="section-wrapper">
-        <h2>Recurring Donations</h2>
-        <RecurringDonationsTable
-          recurringDonations={recurringDonations}
-          isLoading={isLoading}
-        />
+      <div className="transition-item">
+        <h2 className="section-header">Recurring Donations</h2>
+        <div className="section-wrapper">
+          <RecurringDonationsTable
+            recurringDonations={recurringDonations}
+            isLoading={isLoading}
+          />
+        </div>
       </div>
     );
   }
