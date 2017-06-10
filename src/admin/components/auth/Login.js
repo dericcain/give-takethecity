@@ -4,25 +4,25 @@ import { Redirect } from 'react-router-dom';
 import logo from '../../../assets/images/logo.png';
 import './Login.sass';
 
-@inject('auth') @observer
+@inject('authStore') @observer
 export default class Login extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      isAuthenticated: props.auth.checkAuth()
+      isAuthenticated: props.authStore.checkAuth()
     };
   }
 
   handleOnClick() {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
-    this.props.auth.authenticateUser(email, password);
-    this.setState({ isAuthenticated: this.props.auth.checkAuth() })
+    this.props.authStore.authenticateUser(email, password);
+    this.setState({ isAuthenticated: this.props.authStore.checkAuth() })
   }
 
   showLoginErrors() {
-    const { loginErrors } = this.props.auth;
+    const { loginErrors } = this.props.authStore;
     if (loginErrors) {
       return (
         <div className="error-message">
@@ -33,7 +33,6 @@ export default class Login extends Component {
   }
 
   render() {
-    console.log(this.state);
     if (this.state.isAuthenticated) {
       return <Redirect to="/admin/donations" />
     }

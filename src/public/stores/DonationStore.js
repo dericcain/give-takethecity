@@ -213,7 +213,6 @@ class DonationStore {
       self.setStripeToken(response.id);
       axios.post(`${process.env.REACT_APP_API_BASE_URL}/donations`, self.donationSubmissionObject)
       .then(response => {
-        console.log(response);
         if (response.error) {
           self.response = {
             status: 'error',
@@ -255,6 +254,7 @@ class DonationStore {
       amount: this.total * 100,
       designation: this.designation,
       is_paying_fees: this.isPayingFees,
+      general_comments: this.personalInfo.generalComments,
       mission_support: this.personalInfo.missionsSupport,
       staff_support: this.personalInfo.staffSupport,
       is_recurring: this.isRecurring

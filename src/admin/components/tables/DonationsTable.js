@@ -38,8 +38,6 @@ export default class DonationTable extends Component {
       accessor: donation => donation.donor.id,
       Cell: props => <Link className="btn btn-sm btn-view-donor" to={`/admin/donors/${props.value}`}>View Donor</Link>
     }];
-
-
   }
 
   render() {
