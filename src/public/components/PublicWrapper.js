@@ -16,7 +16,8 @@ import {
 } from '../components';
 import './PublicWrapper.sass';
 
-class PublicWrapper extends Component {
+export default class PublicWrapper extends Component {
+  
   constructor(props) {
     super(props);
     const query = new URlParser(props.location.search);
@@ -100,5 +101,3 @@ class PublicWrapper extends Component {
     );
   }
 }
-
-export { PublicWrapper };

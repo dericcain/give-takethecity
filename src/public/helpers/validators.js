@@ -1,4 +1,3 @@
-import validator from 'validator';
 import _ from 'lodash';
 
 export function isNotEmpty(value) {
@@ -10,11 +9,11 @@ export function hasLengthOf(length, value) {
 }
 
 export function isNumber(value) {
-  return validator.isNumeric(value);
+  return /^\d+$/g.test(value);
 }
 
 export function isEmail(value) {
-  return validator.isEmail(value);
+  return /^\S+@\S+\.\S+$/.test(value);
 }
 
 export function showErrorMessages(event, validationType) {
