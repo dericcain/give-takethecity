@@ -1,8 +1,8 @@
+import { BrowserRouter } from 'react-router-dom';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render((
       <BrowserRouter>
@@ -22,5 +22,3 @@ if (module.hot) {
     ), document.getElementById('root'));
   });
 }
-
-registerServiceWorker();
