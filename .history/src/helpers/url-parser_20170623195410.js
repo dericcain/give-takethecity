@@ -12,8 +12,8 @@ export default class URlParser {
     return parseInt(this.params.get('amount'), 10);
   }
 
-  recurring() {
-    console.log(this.params.get('recurring'));
-    return this.params.get('recurring');
+  donation() {
+    console.log(this.params.get('donation'));
+    return this.params.get('donation');
   }
 }

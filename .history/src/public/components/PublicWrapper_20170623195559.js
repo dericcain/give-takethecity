@@ -29,9 +29,6 @@ export default class PublicWrapper extends Component {
   componentWillMount() {
     DonationStore.updateDesignation(this.designationQuery);
     DonationStore.setAmount(this.amountQuery);
-    if (this.donationQuery) {
-      DonationStore.toggleRecurring();
-    }
     this.trackPageViews();
   }
 
