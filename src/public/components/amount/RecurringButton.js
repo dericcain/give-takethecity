@@ -19,7 +19,7 @@ class RecurringButton extends Component {
         className={`btn-recurring ${this.isRecurring() ? 'active' : ''}`}
         onClick={this.handleClick.bind(this)}>
         {this.isRecurring()
-          ? `You're gift is recurring.`
+          ? `Your gift is recurring.`
           : 'Make my gift recurring!'
         }
       </button>
