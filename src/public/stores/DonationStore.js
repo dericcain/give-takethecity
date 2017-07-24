@@ -1,5 +1,6 @@
 import { observable, action, computed } from 'mobx';
 import axios from 'axios';
+import logException from '../../helpers/error-tracker';
 import {
   isNotEmpty,
   hasLengthOf,
@@ -227,7 +228,7 @@ class DonationStore {
         this.isSubmittingRequest = false;
       })
       .catch(error => {
-        console.log(error);
+        logException(error);
         this.isSubmittingRequest = false;
         self.response = {
           status: 'error',

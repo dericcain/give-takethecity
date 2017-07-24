@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import axios from 'axios';
+import logException from '../../../helpers/error-tracker';
 import DesignationComments from './DesignationComments';
 import InputWrapper from '../common/InputWrapper';
 import { showErrorMessages, sectionIsValid } from '../../helpers/validators';
@@ -22,7 +23,7 @@ class PersonalInfo extends Component {
       .then(response => {
         this.setState({ designations: response.data });
       })
-      .catch(error => console.log(error));
+      .catch(error => logException(error));
   }
 
   handleKeyUp(event) {
