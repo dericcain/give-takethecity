@@ -46,6 +46,16 @@ class Review extends Component {
     )
   }
 
+  renderLoadingIcon() {
+    if (this.props.donation.isSubmittingRequest) {
+      return (
+        <img src={loader} alt="Loading" className="btn-loading" />
+      );
+    }
+
+    return null;
+  }
+
   render() {
     const { donation } = this.props;
 
@@ -65,11 +75,12 @@ class Review extends Component {
           city!</p>
         {this.renderErrorMessage()}
         <button
+          disabled={donation.isSubmittingRequest ? 'disabled' : ''}
           className="btn btn-block btn-submit btn-success m-t-24"
           onClick={this.handleOnClick.bind(this)}
           id="submit-donation">
             <span className={`btn-text ${donation.isSubmittingRequest ? 'hidden' : '' }`}>Give now!</span>
-            <img src={loader} alt="Loading" className={`btn-loading ${donation.isSubmittingRequest ? '' : 'hidden' }`} />
+            {this.renderLoadingIcon()}
         </button>
       </div>
     );
